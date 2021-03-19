@@ -27,9 +27,9 @@ public class FileProcessing
 		{
 			Scanner searchForWord = new Scanner(document);
 			
-			while(searchForWord.hasNextLine())
+			while(searchForWord.hasNext())
 			{
-				lineInFile = searchForWord.nextLine();
+				lineInFile = searchForWord.next();
 				System.out.println(lineInFile);
 			}
 			searchForWord.close();
