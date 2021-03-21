@@ -19,7 +19,7 @@ public class FileProcessing
 		document = new File(fileName);
 	}
 	
-	public void readFile()
+	public void readFile(String wordEnteredByUser)
 	{
 		String lineInFile = "";
 		
@@ -30,7 +30,14 @@ public class FileProcessing
 			while(searchForWord.hasNext())
 			{
 				lineInFile = searchForWord.next();
-				System.out.println(lineInFile);
+				if (lineInFile.equals(wordEnteredByUser))
+				{
+					System.out.println("Found the word");
+				}
+				else
+				{
+					System.out.println("Didn't find the word");
+				}
 			}
 			searchForWord.close();
 		}
