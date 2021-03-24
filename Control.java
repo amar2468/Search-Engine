@@ -6,6 +6,7 @@ public class Control {
 	{
 		
 		SearchEngine searchengine1 = new SearchEngine("My Search Engine");
+	
 		System.out.println(searchengine1);
 		
 	}
