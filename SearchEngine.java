@@ -51,6 +51,13 @@ public class SearchEngine extends JFrame implements ActionListener
 			
 			String wordTyped = searchForWords.getText();
 			firstDocument.readFile(wordTyped);
+			
+			FileProcessing secondDocument = new FileProcessing("simpleTextFile.txt");
+			secondDocument.openFile();
+			
+			wordTyped = searchForWords.getText();
+			secondDocument.readFile(wordTyped);
+			
 		}
 
 	}
