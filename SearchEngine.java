@@ -1,3 +1,11 @@
+/***********************************
+*Search Engine: This is the search engine class which allows the user to enter the word they wish to find and the file processing
+*         class is called within this class so that the file can be opened and the word can be searched.
+*Author: Amar Plakalo
+*Date:29/03/2021
+***********************************/
+
+
 package com.javaapp.test;
 
 
@@ -45,19 +53,19 @@ public class SearchEngine extends JFrame implements ActionListener
 	{
 		if (eventDetected.getSource() == searchButton)
 		{
-			FileProcessing firstDocument = new FileProcessing("ap_docs2.txt");
+			
+			FileProcessing firstDocument = new FileProcessing("ap_docs2.txt","simpleTextFile.txt");
 			
 			firstDocument.openFile();
 			
 			String wordTyped = searchForWords.getText();
+			
+	        
 			firstDocument.readFile(wordTyped);
+		
+			firstDocument.reverseMap();
 			
-			FileProcessing secondDocument = new FileProcessing("simpleTextFile.txt");
-			secondDocument.openFile();
-			
-			wordTyped = searchForWords.getText();
-			secondDocument.readFile(wordTyped);
-			
+		
 		}
 
 	}
