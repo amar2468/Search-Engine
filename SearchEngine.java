@@ -2,7 +2,7 @@
 *Search Engine: This is the search engine class which allows the user to enter the word they wish to find and the file processing
 *         class is called within this class so that the file can be opened and the word can be searched.
 *Author: Amar Plakalo
-*Date:29/03/2021
+*Date:30/03/2021
 ***********************************/
 
 
@@ -12,6 +12,11 @@ package com.javaapp.test;
 
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.io.File;
+import java.util.Comparator;
+import java.util.HashMap;
+import java.util.LinkedHashMap;
+import java.util.Map;
 
 import javax.swing.JButton;
 import javax.swing.JFrame;
@@ -54,16 +59,41 @@ public class SearchEngine extends JFrame implements ActionListener
 		if (eventDetected.getSource() == searchButton)
 		{
 			
-			FileProcessing firstDocument = new FileProcessing("ap_docs2.txt","simpleTextFile.txt");
+			FileProcessing documentsToRead1 = new FileProcessing("ap_docs2.txt");
+			FileProcessing documentsToRead2 = new FileProcessing("simpleTextFile.txt");
 			
-			firstDocument.openFile();
+			documentsToRead1.openFile();
+			documentsToRead2.openFile();
 			
 			String wordTyped = searchForWords.getText();
 			
+			Map<File, Integer> documentsToProcess = new HashMap<File, Integer>();
+			
+			Map<File, Integer> firstResult = new HashMap<File, Integer>();
+			Map<File, Integer> secondResult = new HashMap<File, Integer>();
+			
 	        
-			firstDocument.readFile(wordTyped);
-		
-			firstDocument.reverseMap();
+			firstResult = documentsToRead1.readFile(wordTyped);
+			secondResult = documentsToRead2.readFile(wordTyped);
+			
+			
+			documentsToProcess.putAll(firstResult);
+			documentsToProcess.putAll(secondResult);
+			
+			
+			// Creating Linked Hash Map so I can sort the map by value in descending order. This allows me to 
+			// have the words that occur most to be placed at the top of the list
+			
+			LinkedHashMap<File, Integer> mostFrequentWordOccurence = new LinkedHashMap<>();
+			 
+
+			documentsToProcess.entrySet()
+			    .stream()
+			    .sorted(Map.Entry.comparingByValue(Comparator.reverseOrder())) 
+			    .forEachOrdered(collect -> mostFrequentWordOccurence.put(collect.getKey(), collect.getValue()));
+			 
+			JOptionPane.showMessageDialog(this, mostFrequentWordOccurence);
+			
 			
 		
 		}
