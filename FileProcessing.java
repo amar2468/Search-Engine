@@ -2,7 +2,7 @@
 *File Processing: This is the file processing class. This class allows the user to find which documents contain the word they typed
 *		  by opening the file and reading it. 
 *Author: Amar Plakalo
-*Date:29/03/2021
+*Date:30/03/2021
 ***********************************/
 
 
@@ -10,10 +10,7 @@ package com.javaapp.test;
 
 import java.io.File;
 import java.io.FileNotFoundException;
-import java.util.ArrayList;
-import java.util.Comparator;
 import java.util.HashMap;
-import java.util.LinkedHashMap;
 import java.util.Map;
 
 import java.util.Scanner;
@@ -23,24 +20,23 @@ import java.util.Scanner;
 public class FileProcessing 
 {
 	private String fileName;
-	private String otherFile;
 	private File document;
 	private Map<File, Integer> numberOfOccurences = new HashMap<File, Integer>();
 	
-	public FileProcessing(String fileName,String otherFile)
+	public FileProcessing(String fileName)
 	{
-		this.setFileName(fileName,otherFile);
+		this.setFileName(fileName);
 		this.setNumberOfOccurences(numberOfOccurences);
+		getFileName();
+		getNumberOfOccurences();
 	}
 	
 	public void openFile()
 	{
-		ArrayList<String>listOfFiles = new ArrayList<String>();
-		listOfFiles.add(fileName);
-		listOfFiles.add(otherFile);
+		document = new File(fileName);
 	}
 	
-	public void readFile(String wordEnteredByUser)
+	public Map<File, Integer> readFile(String wordEnteredByUser)
 	{
 		String lineInFile = "";
 		int counter = 0;
@@ -48,7 +44,7 @@ public class FileProcessing
 		
 		try
 		{
-			Scanner searchForWord = new Scanner(listOfFiles);
+			Scanner searchForWord = new Scanner(document);
 			
 			while(searchForWord.hasNext())
 			{
@@ -61,6 +57,7 @@ public class FileProcessing
 	
 			}
 			numberOfOccurences.put(document, counter);
+
 			
 			
 			searchForWord.close();
@@ -70,33 +67,22 @@ public class FileProcessing
 			System.out.println("File not found: ");
 			e.printStackTrace();
 		}
+		return numberOfOccurences;
 		
 	}
-	
-	public void reverseMap()
-	{
-		LinkedHashMap<File, Integer> reverseSortedMap = new LinkedHashMap<>();
-		
-		numberOfOccurences.entrySet()
-		    .stream()
-		    .sorted(Map.Entry.comparingByValue(Comparator.reverseOrder())) 
-		    .forEachOrdered(x -> reverseSortedMap.put(x.getKey(), x.getValue()));
-		 
-		System.out.println("Reverse Sorted Map   : " + reverseSortedMap);
-	}
+
 
 	
 	private String getFileName() {
 		return fileName;
 	}
 
-	private void setFileName(String fileName,String otherFile) 
+	private void setFileName(String fileName) 
 	{
 		this.fileName = fileName;
-		this.otherFile = otherFile;
 	}
 
-	Map getNumberOfOccurences() {
+	Map<File, Integer> getNumberOfOccurences() {
 		return numberOfOccurences;
 	}
 
