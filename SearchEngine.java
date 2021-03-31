@@ -2,7 +2,7 @@
 *Search Engine: This is the search engine class which allows the user to enter the word they wish to find and the file processing
 *         class is called within this class so that the file can be opened and the word can be searched.
 *Author: Amar Plakalo
-*Date:30/03/2021
+*Date:31/03/2021
 ***********************************/
 
 
@@ -13,6 +13,7 @@ package com.javaapp.test;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.io.File;
+import java.util.Arrays;
 import java.util.Comparator;
 import java.util.HashMap;
 import java.util.LinkedHashMap;
@@ -54,6 +55,15 @@ public class SearchEngine extends JFrame implements ActionListener
 		setVisible(true);
 		
 	}
+	
+	public String toString()
+	{
+		String messageToUser = "Welcome to the Search Engine app. Search a word and the program will tell you which "
+				+ "documents contain that word and how many times the word occurs in the documents";
+		
+		return messageToUser;
+							
+	}
 	public void actionPerformed(ActionEvent eventDetected)
 	{
 		if (eventDetected.getSource() == searchButton)
@@ -65,7 +75,16 @@ public class SearchEngine extends JFrame implements ActionListener
 			documentsToRead1.openFile();
 			documentsToRead2.openFile();
 			
-			String wordTyped = searchForWords.getText();
+			String wordsTyped = searchForWords.getText();
+			
+			
+			String [] words = wordsTyped.split(" ");
+			
+			System.out.println(Arrays.toString(words));
+			
+			
+			
+			
 			
 			Map<File, Integer> documentsToProcess = new HashMap<File, Integer>();
 			
@@ -73,8 +92,8 @@ public class SearchEngine extends JFrame implements ActionListener
 			Map<File, Integer> secondResult = new HashMap<File, Integer>();
 			
 	        
-			firstResult = documentsToRead1.readFile(wordTyped);
-			secondResult = documentsToRead2.readFile(wordTyped);
+			firstResult = documentsToRead1.readFile(words);
+			secondResult = documentsToRead2.readFile(words);
 			
 			
 			documentsToProcess.putAll(firstResult);
