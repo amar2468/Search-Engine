@@ -2,7 +2,7 @@
 *File Processing: This is the file processing class. This class allows the user to find which documents contain the word they typed
 *		  by opening the file and reading it. 
 *Author: Amar Plakalo
-*Date:31/03/2021
+*Date:03/04/2021
 ***********************************/
 
 
@@ -50,22 +50,19 @@ public class FileProcessing
 			{
 				lineInFile = searchForWord.next();
 				lineInFile = lineInFile.replaceAll("\\p{Punct}", "");
+				
 				if (wordsThatWereEntered.length > 1)
 				{
-					if (lineInFile.equals(wordsThatWereEntered[0]))
+					for(int i = 0; i < wordsThatWereEntered.length; i++)
 					{
-						lineInFile = searchForWord.next();
-						lineInFile = lineInFile.replaceAll("\\p{Punct}", "");
-						if(lineInFile.equals(wordsThatWereEntered[1]))
+						if (lineInFile.equals(wordsThatWereEntered[i]))
 						{
-							counter += 1;
-						}
-						else if(lineInFile.equals(""))
-						{
-							counter += 1;
-						}
+							counter ++;
 						
+						}
 					}
+						
+					
 				}
 				else if(wordsThatWereEntered.length == 1)
 				{
