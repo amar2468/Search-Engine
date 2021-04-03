@@ -106,23 +106,23 @@ public class SearchEngine extends JFrame implements ActionListener
 			
 			
 
-			 // The entries inside the hash map will be viewed as an entrySet(). Entry set is needed when I need
-			 // both key and value from the data. In this case, I want to have the file name and the number of 
-	         	// times that the word occurred in that file	
-			 Set<Entry<File, Integer>> setContainingFilesWithOccurences = documentsToProcess.entrySet();
+			// The entries inside the hash map will be viewed as an entrySet(). Entry set is needed when I need
+			// both key and value from the data. In this case, I want to have the file name and the number of 
+	        	// times that the word occurred in that file	
+			Set<Entry<File, Integer>> setContainingFilesWithOccurences = documentsToProcess.entrySet();
 			 
-			 // An ArrayList is created because when using the Collections.sort method, the first parameter must be a list
-			 // so I had to make an array list out of the key,value.
+			// An ArrayList is created because when using the Collections.sort method, the first parameter must be a list
+			// so I had to make an array list out of the key,value.
 			 
-		     List<Entry<File, Integer>> listContainingFilesWithOccurences = new ArrayList<Entry<File, Integer>>(setContainingFilesWithOccurences);
-		     Collections.sort(listContainingFilesWithOccurences, new Comparator<Map.Entry<File, Integer>>()
-		     {
-		    	 public int compare(Map.Entry<File, Integer> firstOccurence, Map.Entry<File, Integer> secondOccurence)
-		         {
-		    		 return (secondOccurence.getValue()).compareTo(firstOccurence.getValue());
-		         }
-		     } 
-		     );
+		    	List<Entry<File, Integer>> listContainingFilesWithOccurences = new ArrayList<Entry<File, Integer>>(setContainingFilesWithOccurences);
+		    	Collections.sort(listContainingFilesWithOccurences, new Comparator<Map.Entry<File, Integer>>()
+		    	{	
+		    		public int compare(Map.Entry<File, Integer> firstOccurence, Map.Entry<File, Integer> secondOccurence)
+		        	{
+		    			return (secondOccurence.getValue()).compareTo(firstOccurence.getValue());
+		     		}
+		    	} 
+		    	);
 		     
 			JOptionPane.showMessageDialog(this, listContainingFilesWithOccurences);
 			
@@ -137,4 +137,3 @@ public class SearchEngine extends JFrame implements ActionListener
 	
 	
 }
-
