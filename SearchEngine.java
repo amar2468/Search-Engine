@@ -2,7 +2,7 @@
 *Search Engine: This is the search engine class which allows the user to enter the word they wish to find and the file processing
 *         class is called within this class so that the file can be opened and the word can be searched.
 *Author: Amar Plakalo
-*Date:03/04/2021
+*Date:04/04/2021
 ***********************************/
 
 
@@ -73,12 +73,11 @@ public class SearchEngine extends JFrame implements ActionListener
 	{
 		if (eventDetected.getSource() == searchButton)
 		{
+			String [] documents = {"ap_docs2.txt","simpleTextFile.txt"};
+			FileProcessing documentsToRead = new FileProcessing(documents);
 			
-			FileProcessing documentsToRead1 = new FileProcessing("ap_docs2.txt");
-			FileProcessing documentsToRead2 = new FileProcessing("simpleTextFile.txt");
+			documentsToRead.openFile();
 			
-			documentsToRead1.openFile();
-			documentsToRead2.openFile();
 			
 			String wordsTyped = searchForWords.getText();
 			
@@ -93,36 +92,33 @@ public class SearchEngine extends JFrame implements ActionListener
 			
 			Map<File, Integer> documentsToProcess = new HashMap<File, Integer>();
 			
-			Map<File, Integer> firstResult = new HashMap<File, Integer>();
-			Map<File, Integer> secondResult = new HashMap<File, Integer>();
+			Map<File, Integer> Results = new HashMap<File, Integer>();
 			
 	        
-			firstResult = documentsToRead1.readFile(words);
-			secondResult = documentsToRead2.readFile(words);
+			Results = documentsToRead.readFile(words);
+		
 			
-			
-			documentsToProcess.putAll(firstResult);
-			documentsToProcess.putAll(secondResult);
+			documentsToProcess.putAll(Results);
 			
 			
 
-			 // The entries inside the hash map will be viewed as an entrySet(). Entry set is needed when I need
-			 // both key and value from the data. In this case, I want to have the file name and the number of 
-	         	// times that the word occurred in that file	
-			 Set<Entry<File, Integer>> setContainingFilesWithOccurences = documentsToProcess.entrySet();
+			// The entries inside the hash map will be viewed as an entrySet(). Entry set is needed when I need
+			// both key and value from the data. In this case, I want to have the file name and the number of 
+	        	// times that the word occurred in that file	
+			Set<Entry<File, Integer>> setContainingFilesWithOccurences = documentsToProcess.entrySet();
 			 
-			 // An ArrayList is created because when using the Collections.sort method, the first parameter must be a list
-			 // so I had to make an array list out of the key,value.
+			// An ArrayList is created because when using the Collections.sort method, the first parameter must be a list
+			// so I had to make an array list out of the key,value.
 			 
-		     List<Entry<File, Integer>> listContainingFilesWithOccurences = new ArrayList<Entry<File, Integer>>(setContainingFilesWithOccurences);
-		     Collections.sort(listContainingFilesWithOccurences, new Comparator<Map.Entry<File, Integer>>()
-		     {
-		    	 public int compare(Map.Entry<File, Integer> firstOccurence, Map.Entry<File, Integer> secondOccurence)
-		         {
-		    		 return (secondOccurence.getValue()).compareTo(firstOccurence.getValue());
-		         }
-		     } 
-		     );
+		    	List<Entry<File, Integer>> listContainingFilesWithOccurences = new ArrayList<Entry<File, Integer>>(setContainingFilesWithOccurences);
+		    	Collections.sort(listContainingFilesWithOccurences, new Comparator<Map.Entry<File, Integer>>()
+		    	{
+		    		public int compare(Map.Entry<File, Integer> firstOccurence, Map.Entry<File, Integer> secondOccurence)
+		        	{	
+		    			return (secondOccurence.getValue()).compareTo(firstOccurence.getValue());
+		        	}
+		    	} 
+		    	);
 		     
 			JOptionPane.showMessageDialog(this, listContainingFilesWithOccurences);
 			
@@ -137,4 +133,3 @@ public class SearchEngine extends JFrame implements ActionListener
 	
 	
 }
-
