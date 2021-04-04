@@ -2,7 +2,7 @@
 *File Processing: This is the file processing class. This class allows the user to find which documents contain the word they typed
 *		  by opening the file and reading it. 
 *Author: Amar Plakalo
-*Date:03/04/2021
+*Date:04/04/2021
 ***********************************/
 
 
@@ -19,21 +19,25 @@ import java.util.Scanner;
 
 public class FileProcessing 
 {
-	private String fileName;
-	private File document;
+	private String[] files;
+	private File[] documentsNeeded = new File[2];
 	private Map<File, Integer> numberOfOccurences = new HashMap<File, Integer>();
 	
-	public FileProcessing(String fileName)
+	public FileProcessing(String[] files)
 	{
-		this.setFileName(fileName);
+		this.setFiles(files);
 		this.setNumberOfOccurences(numberOfOccurences);
-		getFileName();
+		getFiles();
 		getNumberOfOccurences();
 	}
 	
 	public void openFile()
 	{
-		document = new File(fileName);
+		
+		for(int i = 0; i < files.length; i++)
+		{
+			documentsNeeded[i] = new File(files[i]);
+		}
 	}
 	
 	public Map<File, Integer> readFile(String[] wordsThatWereEntered)
@@ -44,40 +48,45 @@ public class FileProcessing
 		
 		try
 		{
-			Scanner searchForWord = new Scanner(document);
-			
-			while(searchForWord.hasNext())
+			for(int m = 0; m < files.length; m++)
 			{
-				lineInFile = searchForWord.next();
-				lineInFile = lineInFile.replaceAll("\\p{Punct}", "");
+				Scanner searchForWord = new Scanner(documentsNeeded[m]);
 				
-				if (wordsThatWereEntered.length > 1)
+				while(searchForWord.hasNext())
 				{
-					for(int i = 0; i < wordsThatWereEntered.length; i++)
+					lineInFile = searchForWord.next();
+					lineInFile = lineInFile.replaceAll("\\p{Punct}", "");
+					
+					if (wordsThatWereEntered.length > 1)
 					{
-						if (lineInFile.equals(wordsThatWereEntered[i]))
+						for(int i = 0; i < wordsThatWereEntered.length; i++)
 						{
-							counter ++;
+							if (lineInFile.equals(wordsThatWereEntered[i]))
+							{
+								counter ++;
+							
+							}
+						}
+							
 						
+					}
+					else if(wordsThatWereEntered.length == 1)
+					{
+						if (lineInFile.equals(wordsThatWereEntered[0]))
+						{	
+							counter += 1;
 						}
 					}
-						
-					
+		
 				}
-				else if(wordsThatWereEntered.length == 1)
-				{
-					if (lineInFile.equals(wordsThatWereEntered[0]))
-					{	
-						counter += 1;
-					}
-				}
+				numberOfOccurences.put(documentsNeeded[m], counter);
+				counter = 0;
+			
 	
+				
+				
+				searchForWord.close();
 			}
-			numberOfOccurences.put(document, counter);
-
-			
-			
-			searchForWord.close();
 		}
 		catch(FileNotFoundException e)
 		{
@@ -90,13 +99,13 @@ public class FileProcessing
 
 
 	
-	private String getFileName() {
-		return fileName;
+	private String[] getFiles() {
+		return files;
 	}
 
-	private void setFileName(String fileName) 
+	private void setFiles(String[] files) 
 	{
-		this.fileName = fileName;
+		this.files = files;
 	}
 
 	Map<File, Integer> getNumberOfOccurences() {
