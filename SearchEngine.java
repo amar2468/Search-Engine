@@ -117,6 +117,7 @@ public class SearchEngine extends JFrame implements ActionListener
 		        	{	
 		    			return (secondOccurence.getValue()).compareTo(firstOccurence.getValue());
 		        	}
+
 		    	} 
 		    	);
 		     
