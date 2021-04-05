@@ -2,7 +2,7 @@
 *Search Engine: This is the search engine class which allows the user to enter the word they wish to find and the file processing
 *         class is called within this class so that the file can be opened and the word can be searched.
 *Author: Amar Plakalo
-*Date:04/04/2021
+*Date:05/04/2021
 ***********************************/
 
 
@@ -33,7 +33,7 @@ import javax.swing.JTextField;
 public class SearchEngine extends JFrame implements ActionListener
 {
 	JTextField searchForWords;
-	JButton searchButton;
+	JButton searchButton,showFiles;
 	JPanel panel;
 	
 	SearchEngine(String titleOfApp)
@@ -43,8 +43,10 @@ public class SearchEngine extends JFrame implements ActionListener
 		panel = new JPanel();
 		
 		searchButton = new JButton("Search");
+		showFiles = new JButton("Show Files");
 		
 		searchButton.addActionListener(this);
+		showFiles.addActionListener(this);
 		
 		searchForWords = new JTextField();
 		searchForWords.setColumns(14);
@@ -57,6 +59,7 @@ public class SearchEngine extends JFrame implements ActionListener
 		
 		panel.add(searchForWords);
 		panel.add(searchButton);
+		panel.add(showFiles);
 		setVisible(true);
 		
 	}
@@ -73,7 +76,7 @@ public class SearchEngine extends JFrame implements ActionListener
 	{
 		if (eventDetected.getSource() == searchButton)
 		{
-			String [] documents = {"ap_docs2.txt","simpleTextFile.txt"};
+			String [] documents = {"IndonesiaFloods.txt","Covid19News.txt"};
 			FileProcessing documentsToRead = new FileProcessing(documents);
 			
 			documentsToRead.openFile();
@@ -110,24 +113,25 @@ public class SearchEngine extends JFrame implements ActionListener
 			// An ArrayList is created because when using the Collections.sort method, the first parameter must be a list
 			// so I had to make an array list out of the key,value.
 			 
-		    	List<Entry<File, Integer>> listContainingFilesWithOccurences = new ArrayList<Entry<File, Integer>>(setContainingFilesWithOccurences);
+		  	List<Entry<File, Integer>> listContainingFilesWithOccurences = new ArrayList<Entry<File, Integer>>(setContainingFilesWithOccurences);
 		    	Collections.sort(listContainingFilesWithOccurences, new Comparator<Map.Entry<File, Integer>>()
 		    	{
 		    		public int compare(Map.Entry<File, Integer> firstOccurence, Map.Entry<File, Integer> secondOccurence)
-		        	{	
+		        	{
 		    			return (secondOccurence.getValue()).compareTo(firstOccurence.getValue());
 		        	}
-
 		    	} 
 		    	);
 		     
 			JOptionPane.showMessageDialog(this, listContainingFilesWithOccurences);
 			
-			
-			
-			
-			
 		
+		}
+		else if(eventDetected.getSource() == showFiles)
+		{
+			ShowingFiles showingfiles1 = new ShowingFiles("Showing the Files","IndonesiaFloods.txt");
+			showingfiles1.openingFilesNeeded();
+			showingfiles1.readFileContents();
 		}
 
 	}
