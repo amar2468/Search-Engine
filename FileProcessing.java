@@ -2,7 +2,7 @@
 *File Processing: This is the file processing class. This class allows the user to find which documents contain the word they typed
 *		  by opening the file and reading it. 
 *Author: Amar Plakalo
-*Date:04/04/2021
+*Date:05/04/2021
 ***********************************/
 
 
@@ -20,7 +20,7 @@ import java.util.Scanner;
 public class FileProcessing 
 {
 	private String[] files;
-	private File[] documentsNeeded = new File[2];
+	private File[] documentsNeeded;
 	private Map<File, Integer> numberOfOccurences = new HashMap<File, Integer>();
 	
 	public FileProcessing(String[] files)
@@ -33,7 +33,10 @@ public class FileProcessing
 	
 	public void openFile()
 	{
+		// The files.length calculates the length of the array so the program nows how many files are being used
+		documentsNeeded = new File[files.length];
 		
+		// Loops around for the length of the file and creates new file objects in the array
 		for(int i = 0; i < files.length; i++)
 		{
 			documentsNeeded[i] = new File(files[i]);
@@ -42,7 +45,11 @@ public class FileProcessing
 	
 	public Map<File, Integer> readFile(String[] wordsThatWereEntered)
 	{
+		// LineInFile string is used to store the line in the file so it can be checked against the search term/terms
 		String lineInFile = "";
+		
+		
+		// Counter counts the amount of occurences of a word in a file
 		int counter = 0;
 
 		
@@ -55,12 +62,14 @@ public class FileProcessing
 				while(searchForWord.hasNext())
 				{
 					lineInFile = searchForWord.next();
+	
 					lineInFile = lineInFile.replaceAll("\\p{Punct}", "");
-					
+
 					if (wordsThatWereEntered.length > 1)
 					{
 						for(int i = 0; i < wordsThatWereEntered.length; i++)
 						{
+							wordsThatWereEntered[i] = wordsThatWereEntered[i].replaceAll("\\p{Punct}", "");
 							if (lineInFile.equals(wordsThatWereEntered[i]))
 							{
 								counter ++;
@@ -72,6 +81,7 @@ public class FileProcessing
 					}
 					else if(wordsThatWereEntered.length == 1)
 					{
+						wordsThatWereEntered[0] = wordsThatWereEntered[0].replaceAll("\\p{Punct}", "");
 						if (lineInFile.equals(wordsThatWereEntered[0]))
 						{	
 							counter += 1;
