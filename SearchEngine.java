@@ -2,7 +2,7 @@
 *Search Engine: This is the search engine class which allows the user to enter the word they wish to find and the file processing
 *         class is called within this class so that the file can be opened and the word can be searched.
 *Author: Amar Plakalo
-*Date:05/04/2021
+*Date:06/04/2021
 ***********************************/
 
 
@@ -24,28 +24,33 @@ import java.util.Map.Entry;
 import java.util.Set;
 
 import javax.swing.JButton;
+import javax.swing.JFileChooser;
 import javax.swing.JFrame;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JTextField;
+import javax.swing.filechooser.FileSystemView;
 
 
+@SuppressWarnings("serial")
 public class SearchEngine extends JFrame implements ActionListener
 {
 	JTextField searchForWords;
-	JButton searchButton,showFiles;
+	JButton searchButton,chooseFileToRead,showFiles;
 	JPanel panel;
 	
 	SearchEngine(String titleOfApp)
 	{
 		super(titleOfApp);
-		setSize(400,400);
+		setSize(600,600);
 		panel = new JPanel();
 		
 		searchButton = new JButton("Search");
 		showFiles = new JButton("Show Files");
+		chooseFileToRead = new JButton("Choose File");
 		
 		searchButton.addActionListener(this);
+		chooseFileToRead.addActionListener(this);
 		showFiles.addActionListener(this);
 		
 		searchForWords = new JTextField();
@@ -59,6 +64,7 @@ public class SearchEngine extends JFrame implements ActionListener
 		
 		panel.add(searchForWords);
 		panel.add(searchButton);
+		panel.add(chooseFileToRead);
 		panel.add(showFiles);
 		setVisible(true);
 		
@@ -76,7 +82,7 @@ public class SearchEngine extends JFrame implements ActionListener
 	{
 		if (eventDetected.getSource() == searchButton)
 		{
-			String [] documents = {"IndonesiaFloods.txt","Covid19News.txt"};
+			String [] documents = {"IndonesiaFloods.txt","Covid19News.txt","AFWLTeam.txt","IsraelGov.txt"};
 			FileProcessing documentsToRead = new FileProcessing(documents);
 			
 			documentsToRead.openFile();
@@ -88,9 +94,6 @@ public class SearchEngine extends JFrame implements ActionListener
 			String [] words = wordsTyped.split(" ");
 			
 			System.out.println(Arrays.toString(words));
-			
-			
-			
 			
 			
 			Map<File, Integer> documentsToProcess = new HashMap<File, Integer>();
@@ -113,7 +116,7 @@ public class SearchEngine extends JFrame implements ActionListener
 			// An ArrayList is created because when using the Collections.sort method, the first parameter must be a list
 			// so I had to make an array list out of the key,value.
 			 
-		  	List<Entry<File, Integer>> listContainingFilesWithOccurences = new ArrayList<Entry<File, Integer>>(setContainingFilesWithOccurences);
+		    	List<Entry<File, Integer>> listContainingFilesWithOccurences = new ArrayList<Entry<File, Integer>>(setContainingFilesWithOccurences);
 		    	Collections.sort(listContainingFilesWithOccurences, new Comparator<Map.Entry<File, Integer>>()
 		    	{
 		    		public int compare(Map.Entry<File, Integer> firstOccurence, Map.Entry<File, Integer> secondOccurence)
@@ -127,9 +130,30 @@ public class SearchEngine extends JFrame implements ActionListener
 			
 		
 		}
+		
+		
+		else if(eventDetected.getSource() == chooseFileToRead)
+		{
+			JFileChooser j = new JFileChooser(FileSystemView.getFileSystemView());
+			  
+			int retVal = j.showSaveDialog(null);
+			
+			if(retVal == JFileChooser.APPROVE_OPTION)
+			{
+				File fileChosen = j.getSelectedFile();
+				JOptionPane.showMessageDialog(this, "Successfully chose the file name " + fileChosen);
+			}
+			else
+			{
+				JOptionPane.showMessageDialog(this, "Failed to choose the file correctly");
+			}
+		}
+		
+		
 		else if(eventDetected.getSource() == showFiles)
 		{
-			ShowingFiles showingfiles1 = new ShowingFiles("Showing the Files","IndonesiaFloods.txt");
+			String [] documents = {"IndonesiaFloods.txt","Covid19News.txt","AFWLTeam.txt","IsraelGov.txt"};
+			ShowingFiles showingfiles1 = new ShowingFiles("Showing the Files",documents);
 			showingfiles1.openingFilesNeeded();
 			showingfiles1.readFileContents();
 		}
