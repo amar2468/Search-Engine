@@ -2,7 +2,7 @@
 *File Processing: This is the file processing class. This class allows the user to find which documents contain the word they typed
 *		  by opening the file and reading it. 
 *Author: Amar Plakalo
-*Date:05/04/2021
+*Date:06/04/2021
 ***********************************/
 
 
@@ -12,7 +12,6 @@ import java.io.File;
 import java.io.FileNotFoundException;
 import java.util.HashMap;
 import java.util.Map;
-
 import java.util.Scanner;
 
 
@@ -48,8 +47,7 @@ public class FileProcessing
 		// LineInFile string is used to store the line in the file so it can be checked against the search term/terms
 		String lineInFile = "";
 		
-		
-		// Counter counts the amount of occurences of a word in a file
+		// Counter counts the amount of occurrences of a word in a file
 		int counter = 0;
 
 		
@@ -57,13 +55,17 @@ public class FileProcessing
 		{
 			for(int m = 0; m < files.length; m++)
 			{
-				Scanner searchForWord = new Scanner(documentsNeeded[m]);
+				Scanner searchForWord = new Scanner(documentsNeeded[m],"UTF-8");
+			
 				
 				while(searchForWord.hasNext())
 				{
 					lineInFile = searchForWord.next();
-	
+					
+
 					lineInFile = lineInFile.replaceAll("\\p{Punct}", "");
+					
+				
 
 					if (wordsThatWereEntered.length > 1)
 					{
