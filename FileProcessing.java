@@ -2,7 +2,7 @@
 *File Processing: This is the file processing class. This class allows the user to find which documents contain the word they typed
 *		  by opening the file and reading it. 
 *Author: Amar Plakalo
-*Date:06/04/2021
+*Date:07/04/2021
 ***********************************/
 
 
@@ -10,6 +10,7 @@ package com.javaapp.test;
 
 import java.io.File;
 import java.io.FileNotFoundException;
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.Scanner;
@@ -18,11 +19,11 @@ import java.util.Scanner;
 
 public class FileProcessing 
 {
-	private String[] files;
+	private ArrayList <String> files;
 	private File[] documentsNeeded;
 	private Map<File, Integer> numberOfOccurences = new HashMap<File, Integer>();
 	
-	public FileProcessing(String[] files)
+	public FileProcessing(ArrayList<String> files)
 	{
 		this.setFiles(files);
 		this.setNumberOfOccurences(numberOfOccurences);
@@ -33,16 +34,16 @@ public class FileProcessing
 	public void openFile()
 	{
 		// The files.length calculates the length of the array so the program nows how many files are being used
-		documentsNeeded = new File[files.length];
+		documentsNeeded = new File[files.size()];
 		
 		// Loops around for the length of the file and creates new file objects in the array
-		for(int i = 0; i < files.length; i++)
+		for(int i = 0; i < files.size(); i++)
 		{
-			documentsNeeded[i] = new File(files[i]);
+			documentsNeeded[i] = new File(files.get(i));
 		}
 	}
 	
-	public Map<File, Integer> readFile(String[] wordsThatWereEntered)
+	public Map<File, Integer> readFile(String [] wordsThatWereEntered)
 	{
 		// LineInFile string is used to store the line in the file so it can be checked against the search term/terms
 		String lineInFile = "";
@@ -53,7 +54,7 @@ public class FileProcessing
 		
 		try
 		{
-			for(int m = 0; m < files.length; m++)
+			for(int m = 0; m < files.size(); m++)
 			{
 				Scanner searchForWord = new Scanner(documentsNeeded[m],"UTF-8");
 			
@@ -111,11 +112,11 @@ public class FileProcessing
 
 
 	
-	private String[] getFiles() {
+	private ArrayList<String> getFiles() {
 		return files;
 	}
 
-	private void setFiles(String[] files) 
+	private void setFiles(ArrayList<String> files) 
 	{
 		this.files = files;
 	}
