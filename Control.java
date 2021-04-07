@@ -1,10 +1,10 @@
 /***********************************
 *Control: This is the control class which creates an object in the search engine class.
 *Author: Amar Plakalo
-*Date:05/04/2021
+*Date:07/04/2021
 ***********************************/
 
-
+ 
 package com.javaapp.test;
 
 public class Control 
