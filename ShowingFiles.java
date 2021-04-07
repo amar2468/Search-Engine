@@ -1,7 +1,7 @@
 /***********************************
 *Showing Files: This class shows the user the contents of the files they are using
 *Author: Amar Plakalo
-*Date:06/04/2021
+*Date:07/04/2021
 ***********************************/
 
 package com.javaapp.test;
@@ -9,6 +9,7 @@ package com.javaapp.test;
 import java.awt.FlowLayout;
 import java.io.File;
 import java.io.FileNotFoundException;
+import java.util.ArrayList;
 import java.util.Scanner;
 
 import javax.swing.JFrame;
@@ -19,13 +20,13 @@ import javax.swing.JTextArea;
 @SuppressWarnings("serial")
 public class ShowingFiles extends JFrame
 {
-	private String[] fileNamesNeeded;
+	private ArrayList<String> fileNamesNeeded;
 	private File[] seeFileContents;
 	JTextArea[] showingContentsOfFiles;
 	JPanel newPanel;
 	
 	
-	ShowingFiles(String titleOfWindow,String[] fileNamesNeeded)
+	ShowingFiles(String titleOfWindow,ArrayList<String> fileNamesNeeded)
 	{
 		super(titleOfWindow);
 		setSize(1500,1500);
@@ -33,14 +34,15 @@ public class ShowingFiles extends JFrame
 		
 		this.setFileNamesNeeded(fileNamesNeeded);
 		
-		seeFileContents = new File[fileNamesNeeded.length];
+		seeFileContents = new File[fileNamesNeeded.size()];
 		
-		showingContentsOfFiles = new JTextArea[fileNamesNeeded.length];
+		showingContentsOfFiles = new JTextArea[fileNamesNeeded.size()];
 	
-		for(int s = 0; s < fileNamesNeeded.length;s++)
+		for(int s = 0; s < fileNamesNeeded.size();s++)
 		{
 			showingContentsOfFiles[s] = new JTextArea(5,10);
 			newPanel.add(showingContentsOfFiles[s]);
+			
 		}
 	
 
@@ -55,9 +57,9 @@ public class ShowingFiles extends JFrame
 	
 	public void openingFilesNeeded()
 	{
-		for(int k = 0; k < fileNamesNeeded.length; k++)
+		for(int k = 0; k < fileNamesNeeded.size(); k++)
 		{
-			seeFileContents[k] = new File(getFileNamesNeeded()[k]);
+			seeFileContents[k] = new File(getFileNamesNeeded().get(k));
 		}
 	}
 	
@@ -68,7 +70,7 @@ public class ShowingFiles extends JFrame
 		
 		try
 		{
-			for(int p = 0; p < fileNamesNeeded.length; p++)
+			for(int p = 0; p < fileNamesNeeded.size(); p++)
 			{
 				Scanner s1 = new Scanner(seeFileContents[p],"UTF-8");
 				
@@ -76,7 +78,6 @@ public class ShowingFiles extends JFrame
 				while (s1.hasNextLine())
 				{
 					holdingCurrentLine = s1.nextLine();
-					holdingCurrentLine = holdingCurrentLine.replaceAll("â€™","'");
 					showingContentsOfFiles[p].append(holdingCurrentLine + "\n");
 				
 				}
@@ -92,12 +93,12 @@ public class ShowingFiles extends JFrame
 		}
 	}
 
-	private String[] getFileNamesNeeded() 
+	private ArrayList<String> getFileNamesNeeded() 
 	{
 		return fileNamesNeeded;
 	}
 
-	private void setFileNamesNeeded(String[] fileNamesNeeded) 
+	private void setFileNamesNeeded(ArrayList<String> fileNamesNeeded) 
 	{
 		this.fileNamesNeeded = fileNamesNeeded;
 	}
