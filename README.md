@@ -40,3 +40,18 @@ If the user chose the choose the file button, the program needs to know what to 
 
 CLASS - ShowingFiles class
 
+The ShowingFiles class allows the user to see the files that they selected,i.e. the contents of these files. This is a GUI class that contains elements of file processing also. 
+
+Again, most of the imports are quite self-explanatory. 
+
+In the class constructor, it takes in the title provided from the SearchEngine class and the arraylist that stores the textfile names. Panel is created which uses flowlayout. Then, an object is created that stores the files the user chose. The length of the arraylist is found out by calculating the length of the arraylist that stores the textfile names. Then, a for loop is used to add TextAreas depending on the amount of files selected. So, if the user chose 3 files, 3 textareas will be displayed. The panel is added. 
+
+The next method is openingFilesNeeded(). This method stores the textfile name as a file inside the arraylist that stores the File data. 
+
+The next method is readFileContents(). A string variable is declared that will store the line in the file to be printed. Yet again, a try/catch is used so that there is a system in place to throw an error if the file does not exist. A for loop is used to loop for the amount of textfiles selected. The scanner is created which will scan each file so that then later, each line is printed to screen. While loop is used to iterate over each line in the file. The string variable stores the result from the scanner object that scanned the line in the file. The string variable is then appended to the textarea that will contain the contents of the files. Each time a file has been completed i.e. it has been fully scanned, the scanner object closes and it opens again if there is another file and so on. 
+
+
+CLASS - Control class
+
+The control class has an object of the SearchEngine class so that it can open the GUI window of the SearchEngine. Then, the object is printed which prints out the toString() method in the SearchEngine class.
+
