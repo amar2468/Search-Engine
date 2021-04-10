@@ -9,9 +9,9 @@ The program consists of four classes:
 3. ShowingFiles class, which shows the contents of the files that were chosen by the user
 4. Control class, which creates a search engine object that gives the title to the app
 
-**
-CLASSES EXPLAINED - FileProcessing Class
-**
+
+**CLASSES EXPLAINED - FileProcessing Class**
+
 This class takes the word/words entered and searches through the files provided to see whether they occur in the files. After all files are checked, the amount of times the word/words occurred will be available on screen. A couple of imports were made. The file module was imported because this class would deal with files and this module is needed. Also, an arraylist was imported because the textfile names were stored inside an arraylist. HashMap is imported so that the map can be used in order to store the key (file) and the value (the amount of occurrences of a word in that file). The scanner was needed in order to iterate through the file.
 
 In the FileProcessing class, three data structures were declared. The arraylist would store the filenames of the files that the user chose. The File data structure stores the files that the user chose. The map stores the key,value pair which means the file and the number of occurrences. The constructor takes in the arraylist that stores the textfile names so that it can be encapsulated using getters and setters. 
@@ -50,8 +50,8 @@ The next method is openingFilesNeeded(). This method stores the textfile name as
 
 The next method is readFileContents(). A string variable is declared that will store the line in the file to be printed. Yet again, a try/catch is used so that there is a system in place to throw an error if the file does not exist. A for loop is used to loop for the amount of textfiles selected. The scanner is created which will scan each file so that then later, each line is printed to screen. While loop is used to iterate over each line in the file. The string variable stores the result from the scanner object that scanned the line in the file. The string variable is then appended to the textarea that will contain the contents of the files. Each time a file has been completed i.e. it has been fully scanned, the scanner object closes and it opens again if there is another file and so on. 
 
-**
-CLASS - Control class**
+
+**CLASS - Control class**
 
 The control class has an object of the SearchEngine class so that it can open the GUI window of the SearchEngine. Then, the object is printed which prints out the toString() method in the SearchEngine class.
 
