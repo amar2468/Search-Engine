@@ -1,7 +1,7 @@
 /***********************************
 *Control: This is the control class which creates an object in the search engine class.
 *Author: Amar Plakalo
-*Date:07/04/2021
+*Date:10/04/2021
 ***********************************/
 
  
@@ -16,6 +16,7 @@ public class Control
 		
 		SearchEngine searchengine1 = new SearchEngine("My Search Engine - Amar Plakalo");
 	
+		// Print the object using the method toString() in that class
 		System.out.println(searchengine1);
 		
 		
