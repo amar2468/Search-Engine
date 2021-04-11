@@ -2,7 +2,7 @@
 *File Processing: This is the file processing class. This class allows the user to find which documents contain the word they typed
 *		  by opening the file and reading it. 
 *Author: Amar Plakalo
-*Date:10/04/2021
+*Date:11/04/2021
 ***********************************/
 
 
@@ -13,6 +13,7 @@ import java.io.FileNotFoundException;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
+import java.util.Map.Entry;
 import java.util.Scanner;
 
 
@@ -80,8 +81,9 @@ public class FileProcessing
 						for(int i = 0; i < wordsThatWereEntered.length; i++)
 						{
 							wordsThatWereEntered[i] = wordsThatWereEntered[i].replaceAll("\\p{Punct}", ""); // remove punctuation from the word entered
-							if (wordInFile.equals(wordsThatWereEntered[i])) // if it is equal to the current word
-													// in the file
+							if (wordInFile.equals(wordsThatWereEntered[i])) 
+							// if it is equal to the current word
+							// in the file
 							{
 								counter ++; // increment the counter
 							
@@ -90,23 +92,26 @@ public class FileProcessing
 							
 						
 					}
-					// if only one word was entered into the textfield
+					// if only one word was entered into the text field
 					else if(wordsThatWereEntered.length == 1)
 					{
 						// remove punctuation from the word
 						wordsThatWereEntered[0] = wordsThatWereEntered[0].replaceAll("\\p{Punct}", "");
-						if (wordInFile.equals(wordsThatWereEntered[0])) // if it is equal to the current word 
-												// in the file
+						if (wordInFile.equals(wordsThatWereEntered[0])) 
+					        // if it is equal to the current word 
+						// in the file
 						{	
 							counter += 1; // Increment the counter
 						}
 					}
 		
 				}
-				numberOfOccurences.put(documentsNeeded[m], counter); // put the current file and the amount
-										    // of occurrences of the words inside the map
+				
+				// put the current file and the amount
+				// of occurrences of the words inside the map
+				numberOfOccurences.put(documentsNeeded[m], counter); 
+
 				counter = 0; // set counter to 0 so it can count new files
-			
 	
 				
 				
@@ -120,6 +125,14 @@ public class FileProcessing
 		}
 		return numberOfOccurences; // returns the map to the SearchEngine class so it can be sorted by value
 		
+	}
+	
+	public String calculatePercentage(Entry<File, Integer> entry,int b)
+	{
+		float percentage = 0;
+		percentage = ((float)entry.getValue()) / documentsNeeded[b].length() * 100;
+		String formatPercentage = String.format("%.2f", percentage);
+		return formatPercentage;
 	}
 
 
