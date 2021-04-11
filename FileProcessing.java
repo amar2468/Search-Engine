@@ -61,6 +61,7 @@ public class FileProcessing
 				
 				Scanner searchForWord = new Scanner(documentsNeeded[m],"UTF-8");
 			
+			
 				
 				// while the file has another word i.e. while the file is still not fully read
 				
@@ -68,7 +69,7 @@ public class FileProcessing
 				{
 					wordInFile = searchForWord.next(); // store the next word inside the variable
 					
-
+				
 					wordInFile = wordInFile.replaceAll("\\p{Punct}", ""); // remove punctuation from that word
 					
 				
@@ -98,7 +99,7 @@ public class FileProcessing
 						// remove punctuation from the word
 						wordsThatWereEntered[0] = wordsThatWereEntered[0].replaceAll("\\p{Punct}", "");
 						if (wordInFile.equals(wordsThatWereEntered[0])) 
-					        // if it is equal to the current word 
+					      	// if it is equal to the current word 
 						// in the file
 						{	
 							counter += 1; // Increment the counter
@@ -130,7 +131,27 @@ public class FileProcessing
 	public String calculatePercentage(Entry<File, Integer> entry,int b)
 	{
 		float percentage = 0;
-		percentage = ((float)entry.getValue()) / documentsNeeded[b].length() * 100;
+		@SuppressWarnings("unused")
+		int amountOfWords = 0;
+		
+		try
+		{
+			Scanner s2 = new Scanner(entry.getKey(),"UTF-8");
+			
+			while(s2.hasNext())
+			{
+				s2.next();
+				amountOfWords++;
+			}
+			s2.close();
+		}
+		catch(FileNotFoundException e) // if the file is not found
+		{
+			System.out.println("File not found: "); // print message
+			e.printStackTrace(); // used to handle exceptions in java
+		}
+		
+		percentage = ((float)entry.getValue()) / amountOfWords * 100;
 		String formatPercentage = String.format("%.2f", percentage);
 		return formatPercentage;
 	}
@@ -155,6 +176,13 @@ public class FileProcessing
 		return numberOfOccurences;
 	}
 	
+	// setter for number of occurrences
+
+	void setNumberOfOccurences(Map<File, Integer> numberOfOccurences) 
+	{
+		this.numberOfOccurences = numberOfOccurences;
+	}
+}
 	// setter for number of occurrences
 
 	void setNumberOfOccurences(Map<File, Integer> numberOfOccurences) 
