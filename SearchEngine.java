@@ -2,7 +2,7 @@
 *Search Engine: This is the search engine class which allows the user to enter the word they wish to find and the file processing
 *         class is called within this class so that the file can be opened and the word can be searched.
 *Author: Amar Plakalo
-*Date:10/04/2021
+*Date:11/04/2021
 ***********************************/
 
 
@@ -151,12 +151,13 @@ public class SearchEngine extends JFrame implements ActionListener
 			
 				// put the Results map inside the documentsToProcess map
 				documentsToProcess.putAll(Results);
+			
 				
 				
 	
 				// The entries inside the hash map will be viewed as an entrySet(). Entry set is needed when I need
 				// both key and value from the data. In this case, I want to have the file name and the number of 
-		        	// times that the word occurred in that file	
+		                // times that the word occurred in that file	
 				Set<Entry<File, Integer>> setContainingFilesWithOccurences = documentsToProcess.entrySet();
 				 
 				// An ArrayList is created because when using the Collections.sort method, the first parameter must be a list
@@ -171,8 +172,12 @@ public class SearchEngine extends JFrame implements ActionListener
 			        	}
 			    	} 
 			    	);
-			    	// This prints out the occurrences in the files
-				JOptionPane.showMessageDialog(this, listContainingFilesWithOccurences);
+			        // This prints out the occurrences in the files and the percentage
+				for(int x = 0; x < listContainingFilesWithOccurences.size(); x++)
+				{
+					String returnedPercentage = documentsToRead.calculatePercentage(listContainingFilesWithOccurences.get(x) , x);
+					JOptionPane.showMessageDialog(null,listContainingFilesWithOccurences.get(x) + "    Percentage -> " + returnedPercentage + "%");
+				}
 			}
 				
 		
@@ -182,13 +187,18 @@ public class SearchEngine extends JFrame implements ActionListener
 		else if(eventDetected.getSource() == chooseFileToRead) // if the user chose the option to choose a file
 		{
 			int checker = 0;
-			JFileChooser j = new JFileChooser(FileSystemView.getFileSystemView()); // this shows the file system
-											       // so the user can pick the file
-											      // in whatever directory
+			
+			// this shows the file system
+			// so the user can pick the file
+		        // in whatever directory
+			
+			JFileChooser j = new JFileChooser(FileSystemView.getFileSystemView()); 
+			
+			 // once the user chooses an option, either to save or cancel,
+		         // the program will identify what the user chose and this will give
+		        // a return value
 			  
-			int retVal = j.showSaveDialog(null); // once the user chooses an option, either to save or cancel,
-							    // the program will identify what the user chose and this will give
-							   // a return value
+			int retVal = j.showSaveDialog(null); 
 			
 			
 			if(retVal == JFileChooser.APPROVE_OPTION) // if the user chose to save the file they selected
@@ -203,8 +213,9 @@ public class SearchEngine extends JFrame implements ActionListener
 				{
 					for(int t=0; t < documents.size(); t++) // Loop for amount of documents chosen
 					{
-						if(documents.get(t).equals(j.getSelectedFile().getName())) // if the file chosen is already
-							                                                   // in the list
+						if(documents.get(t).equals(j.getSelectedFile().getName())) 
+						// if the file chosen is already
+					    	// in the list
 						{
 							checker = 1; // set checker to 1
 							break; // immediately break because the file already occurred - no need to check more
