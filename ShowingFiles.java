@@ -1,7 +1,7 @@
 /***********************************
 *Showing Files: This class shows the user the contents of the files they are using
 *Author: Amar Plakalo
-*Date:10/04/2021
+*Date:11/04/2021
 ***********************************/
 
 package com.javaapp.test;
@@ -66,16 +66,20 @@ public class ShowingFiles extends JFrame
 	{
 		for(int k = 0; k < fileNamesNeeded.size(); k++) // loops for the amount of files chosen
 		{
-			seeFileContents[k] = new File(getFileNamesNeeded().get(k)); // putting the filenames inside the file
-										   // object array list in the specific index
+			// putting the filenames inside the file
+		     	// object array list in the specific index
+			
+			seeFileContents[k] = new File(getFileNamesNeeded().get(k)); 
+
 		}
 	}
 	
 
 	public void readFileContents() // allows the program to read the files and to present them on screen
 	{
-		String holdingCurrentLine = ""; // string variable that will hold the current line which will be appended
-		                               // to the textarea.
+		// string variable that will hold the current line which will be appended
+		// to the text area.
+		String holdingCurrentLine = ""; 
 		
 		try // attempt this first
 		{
@@ -87,9 +91,10 @@ public class ShowingFiles extends JFrame
 				while (s1.hasNextLine()) // scanner scans the next line in the file
 				{
 					holdingCurrentLine = s1.nextLine(); // put the line inside the string variable
-					showingContentsOfFiles[p].append(holdingCurrentLine + "\n"); // put the current line inside the
-												     // text area so that the full file
-												    // is read inside the text area
+					
+					// put the current line inside the text area so that the full file is read inside the text area
+					showingContentsOfFiles[p].append(holdingCurrentLine + "\n"); 
+
 				
 				}
 				s1.close(); // close scanner so the program can move on to the next file, if there are more files
@@ -104,14 +109,14 @@ public class ShowingFiles extends JFrame
 		}
 	}
 	
-	// getter for file names
+	// getter for the file names
 
 	private ArrayList<String> getFileNamesNeeded() 
 	{
 		return fileNamesNeeded;
 	}
 	
-	// setter for file names
+	// setter for the file names
 
 	private void setFileNamesNeeded(ArrayList<String> fileNamesNeeded) 
 	{
@@ -119,3 +124,4 @@ public class ShowingFiles extends JFrame
 	}
 	
 
+}
