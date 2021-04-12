@@ -1,7 +1,7 @@
 /***********************************
 *Showing Files: This class shows the user the contents of the files they are using
 *Author: Amar Plakalo
-*Date:11/04/2021
+*Date:12/04/2021
 ***********************************/
 
 package com.javaapp.test;
@@ -14,6 +14,7 @@ import java.util.Scanner;
 
 import javax.swing.JFrame;
 import javax.swing.JPanel;
+import javax.swing.JScrollPane;
 import javax.swing.JTextArea;
 
 
@@ -23,6 +24,7 @@ public class ShowingFiles extends JFrame
 	private ArrayList<String> fileNamesNeeded;
 	private File[] seeFileContents;
 	JTextArea[] showingContentsOfFiles;
+	JScrollPane[] scrollBar;
 	JPanel newPanel;
 	
 	
@@ -43,12 +45,18 @@ public class ShowingFiles extends JFrame
 		
 		// text area object with the same size as above.
 		showingContentsOfFiles = new JTextArea[fileNamesNeeded.size()];
+		
+		// Scroll bar with same size
+		
+		scrollBar = new JScrollPane[fileNamesNeeded.size()];
 	
 		// for loop runs for the amount of files chosen
 		for(int s = 0; s < fileNamesNeeded.size();s++)
 		{
-			showingContentsOfFiles[s] = new JTextArea(5,10); // create a text area in that index
+			showingContentsOfFiles[s] = new JTextArea(30,35); // create a text area in that index
 			newPanel.add(showingContentsOfFiles[s]); // put the text area on the panel
+			scrollBar[s] = new JScrollPane(showingContentsOfFiles[s],JScrollPane.VERTICAL_SCROLLBAR_AS_NEEDED,JScrollPane.HORIZONTAL_SCROLLBAR_AS_NEEDED);
+			newPanel.add(scrollBar[s]);
 			
 		}
 	
@@ -67,7 +75,7 @@ public class ShowingFiles extends JFrame
 		for(int k = 0; k < fileNamesNeeded.size(); k++) // loops for the amount of files chosen
 		{
 			// putting the filenames inside the file
-		     	// object array list in the specific index
+		    // object array list in the specific index
 			
 			seeFileContents[k] = new File(getFileNamesNeeded().get(k)); 
 
