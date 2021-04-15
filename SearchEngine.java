@@ -2,7 +2,7 @@
 *Search Engine: This is the search engine class which allows the user to enter the word they wish to find and the file processing
 *         class is called within this class so that the file can be opened and the word can be searched.
 *Author: Amar Plakalo
-*Date:11/04/2021
+*Date:15/04/2021
 ***********************************/
 
 
@@ -16,7 +16,6 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.io.File;
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.Collections;
 import java.util.Comparator;
 import java.util.HashMap;
@@ -47,7 +46,8 @@ public class SearchEngine extends JFrame implements ActionListener
 	{
 		// inherits the title from the super class and sets the size of the GUI window
 		super(titleOfApp);
-		setSize(470,300);
+		setSize(465,300);
+	
 		
 		// create a panel which will store the title and set the background colour to red
 		panel = new JPanel();
@@ -55,14 +55,16 @@ public class SearchEngine extends JFrame implements ActionListener
 		
 		panel.setLayout(new FlowLayout());
 		
-		// create panel2 which stores textfield and three buttons and set background colour to gray.
-		// Flowlayout is used
+		// create panel2 which stores text field and three buttons and set background colour to gray.
+		// Flow layout is used
 		
 		FlowLayout flayout = new FlowLayout();
 		
 		JPanel panel2 = new JPanel();
 		panel2.setLayout(flayout);
 		panel2.setBackground(Color.gray);
+		
+
 		
 		// Title of the Application
 		
@@ -83,13 +85,14 @@ public class SearchEngine extends JFrame implements ActionListener
 		// an action, if used.
 		
 		searchForWords = new JTextField();
-		searchForWords.setColumns(14);
+		searchForWords.setColumns(15);
 		searchForWords.addActionListener(this);
 		
 		// Adding the panels and organizing them on screen
 		
 		add(panel,"North");
 		add(panel2,"West");
+		
 		
 		// Adding elements to the panels and setting it to be visible on screen.
 
@@ -136,7 +139,6 @@ public class SearchEngine extends JFrame implements ActionListener
 				// split the string variable contents and put inside the array that stores the words.
 				String [] words = wordsTyped.split(" ");
 				
-				System.out.println(Arrays.toString(words));
 				
 				// creating this map so that I can put the results of the Results map inside the documentsToProcess
 				// map. 
@@ -157,7 +159,7 @@ public class SearchEngine extends JFrame implements ActionListener
 	
 				// The entries inside the hash map will be viewed as an entrySet(). Entry set is needed when I need
 				// both key and value from the data. In this case, I want to have the file name and the number of 
-		                // times that the word occurred in that file	
+		        	// times that the word occurred in that file	
 				Set<Entry<File, Integer>> setContainingFilesWithOccurences = documentsToProcess.entrySet();
 				 
 				// An ArrayList is created because when using the Collections.sort method, the first parameter must be a list
@@ -169,13 +171,14 @@ public class SearchEngine extends JFrame implements ActionListener
 			    		public int compare(Map.Entry<File, Integer> firstOccurence, Map.Entry<File, Integer> secondOccurence)
 			        	{
 			    			return (secondOccurence.getValue()).compareTo(firstOccurence.getValue());
-			        	}
+			        	}	
 			    	} 
-			    	);
-			        // This prints out the occurrences in the files and the percentage
+			   	);
+			    
+			    	// This prints out the occurrences in the files and the percentage
 				for(int x = 0; x < listContainingFilesWithOccurences.size(); x++)
 				{
-					String returnedPercentage = documentsToRead.calculatePercentage(listContainingFilesWithOccurences.get(x) , x);
+					String returnedPercentage = documentsToRead.calculatePercentage(listContainingFilesWithOccurences.get(x) , x,words);
 					JOptionPane.showMessageDialog(null,listContainingFilesWithOccurences.get(x) + "    Percentage -> " + returnedPercentage + "%");
 				}
 			}
@@ -190,13 +193,13 @@ public class SearchEngine extends JFrame implements ActionListener
 			
 			// this shows the file system
 			// so the user can pick the file
-		        // in whatever directory
+		    	// in whatever directory
 			
 			JFileChooser j = new JFileChooser(FileSystemView.getFileSystemView()); 
 			
-			 // once the user chooses an option, either to save or cancel,
-		         // the program will identify what the user chose and this will give
-		        // a return value
+			// once the user chooses an option, either to save or cancel,
+		    	// the program will identify what the user chose and this will give
+		    	// a return value
 			  
 			int retVal = j.showSaveDialog(null); 
 			
@@ -207,7 +210,6 @@ public class SearchEngine extends JFrame implements ActionListener
 				{
 					JOptionPane.showMessageDialog(this, "Successfully chose the file name " + j.getSelectedFile().getName());
 					documents.add(j.getSelectedFile().getName());
-					System.out.println(documents);	
 				}
 				else // Otherwise
 				{
@@ -215,7 +217,7 @@ public class SearchEngine extends JFrame implements ActionListener
 					{
 						if(documents.get(t).equals(j.getSelectedFile().getName())) 
 						// if the file chosen is already
-					    	// in the list
+					    // in the list
 						{
 							checker = 1; // set checker to 1
 							break; // immediately break because the file already occurred - no need to check more
