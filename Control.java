@@ -1,7 +1,7 @@
 /***********************************
 *Control: This is the control class which creates an object in the search engine class.
 *Author: Amar Plakalo
-*Date:11/04/2021
+*Date:15/04/2021
 ***********************************/
 
  
