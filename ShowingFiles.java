@@ -1,7 +1,7 @@
 /***********************************
 *Showing Files: This class shows the user the contents of the files they are using
 *Author: Amar Plakalo
-*Date:12/04/2021
+*Date:15/04/2021
 ***********************************/
 
 package com.javaapp.test;
@@ -99,6 +99,9 @@ public class ShowingFiles extends JFrame
 				while (s1.hasNextLine()) // scanner scans the next line in the file
 				{
 					holdingCurrentLine = s1.nextLine(); // put the line inside the string variable
+					
+					holdingCurrentLine = holdingCurrentLine.replaceAll("[\\p{Punct}&&[^.,]]+", "");
+					
 					
 					// put the current line inside the text area so that the full file is read inside the text area
 					showingContentsOfFiles[p].append(holdingCurrentLine + "\n"); 
