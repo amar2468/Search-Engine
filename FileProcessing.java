@@ -2,7 +2,7 @@
 *File Processing: This is the file processing class. This class allows the user to find which documents contain the word they typed
 *		  by opening the file and reading it. 
 *Author: Amar Plakalo
-*Date:16/04/2021
+*Date:17/04/2021
 ***********************************/
 
 
@@ -25,7 +25,6 @@ public class FileProcessing
 	private ArrayList <String> files;
 	private File[] documentsNeeded;
 	private Map<File, Integer> numberOfOccurences = new HashMap<File, Integer>();
-	private int var;
 	private int onlyOnce;
 	
 	public FileProcessing(ArrayList<String> files)
@@ -59,8 +58,6 @@ public class FileProcessing
 		
 		int countMultipleWords = 0;
 		
-		var = 0;
-		
 		onlyOnce = 0;
 
 		int checkfor = 0;
@@ -72,8 +69,7 @@ public class FileProcessing
 				// Scanner is created and it scans the file in the m index position of the files
 				
 				Scanner searchForWord = new Scanner(documentsNeeded[m],"UTF-8");
-				
-				var = 0;
+
 				
 				checkfor = 0;
 			
@@ -101,7 +97,6 @@ public class FileProcessing
 							
 							if(wordsThatWereEntered.length == countMultipleWords)
 							{
-								var++;
 								checkfor++;
 								countMultipleWords = 0;
 							}
@@ -118,7 +113,6 @@ public class FileProcessing
 								
 								if(wordsThatWereEntered.length == countMultipleWords)
 								{
-									var++;
 									checkfor++;
 									countMultipleWords = 0;
 								}
@@ -138,7 +132,6 @@ public class FileProcessing
 							}
 							else
 							{
-								var = 0;
 								countMultipleWords = 0;
 								
 							}
@@ -152,12 +145,10 @@ public class FileProcessing
 					if(checkfor > 0)
 					{
 						numberOfOccurences.put(documentsNeeded[m], checkfor);
-						var = 1;
 					}
 					else
 					{
 						numberOfOccurences.put(documentsNeeded[m], 0);
-						var = 0;
 					}
 					searchForWord.close(); // close scanner so a new file can be read (if there are new files)
 				
@@ -207,7 +198,7 @@ public class FileProcessing
 		
 	}
 	
-	public String calculatePercentage(Entry<File, Integer> entry,int b, String[] userEntersWords)
+	public String calculatePercentage(Entry<File, Integer> entry, String[] userEntersWords)
 	{
 		float percentage = 0;
 		String formatPercentage = "";
@@ -230,7 +221,7 @@ public class FileProcessing
 			e.printStackTrace(); // used to handle exceptions in java
 		}
 		
-		if(var >= 1 && onlyOnce == 0 )
+		if(onlyOnce == 0)
 		{
 			if(entry.getValue() > 0)
 			{
@@ -244,16 +235,12 @@ public class FileProcessing
 			}
 			
 		}
-		else if(var == 0 && onlyOnce == 1)
+		else if(onlyOnce == 1)
 		{
 			percentage = ((float)entry.getValue()) / amountOfWords * 100;
 			formatPercentage = String.format("%.2f", percentage);
 		}
-		else if(var == 0 && onlyOnce == 0)
-		{
-			percentage = ((float)entry.getValue()) / amountOfWords * 100;
-			formatPercentage = String.format("%.2f", percentage);
-		}
+
 		return formatPercentage;
 	}
 
