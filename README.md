@@ -64,3 +64,31 @@ The next method is readFileContents(). A string variable is declared that will s
 
 The control class has an object of the SearchEngine class so that it can open the GUI window of the SearchEngine. Then, the object is printed which prints out the toString() method in the SearchEngine class.
 
+
+
+**CORE FUNCTIONALITY IN THE PROGRAM**
+
+- Created a textfield so the user can enter the terms,
+- Created three buttons so the user can search a term/terms, choose a file or show the files.
+- Created two panels so that everything looks organised in the GUI window
+- The program correctly calculates the amount of words in the file
+- The program has the ability to search for one word. It also has the ability to search multiple words,
+- Textarea used so the file can be displayed here
+- Used the scroll bar so that the you can scroll a longer text,
+- Use of error-checking code
+
+
+**OPTIONAL FUNCTIONALITY IN THE PROGRAM**
+
+- JFileChooser used, so that the user can choose which files they wish to open. The file has to be in the eclipse project directory for it to be displayed and used.
+- Percentage is used to rank the terms entered against the file
+- Added some colour to the GUI so it looks better
+- Opens a new window when you click the show files button.
+
+
+
+
+
+If I had more time, I would have added the spelling correction so that words can be corrected if mispellt. Also, I would have definitely included the one where if, for example, you search for the word "walk", it would tell you that there are words such as walking, walked etc... This would have made the search engine even smarter. Overall, I am happy with the search engine because it allows the user to easily search for terms and it precisely tells the user which files contain the search terms entered.
+
+
