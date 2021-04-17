@@ -2,7 +2,7 @@
 *Search Engine: This is the search engine class which allows the user to enter the word they wish to find and the file processing
 *         class is called within this class so that the file can be opened and the word can be searched.
 *Author: Amar Plakalo
-*Date:15/04/2021
+*Date:17/04/2021
 ***********************************/
 
 
@@ -156,7 +156,12 @@ public class SearchEngine extends JFrame implements ActionListener
 			
 				
 				
-	
+				
+				// I used the website https://www.java2novice.com/java-interview-programs/sort-a-map-by-value/
+				// to sort the map by value in descending order. I changed the variable names and tried to 
+				// understand what the code is doing. I was not sure whether to flag it but, to be on the 
+				// safe side, I just want to flag it.
+				
 				// The entries inside the hash map will be viewed as an entrySet(). Entry set is needed when I need
 				// both key and value from the data. In this case, I want to have the file name and the number of 
 		        	// times that the word occurred in that file	
@@ -171,14 +176,14 @@ public class SearchEngine extends JFrame implements ActionListener
 			    		public int compare(Map.Entry<File, Integer> firstOccurence, Map.Entry<File, Integer> secondOccurence)
 			        	{
 			    			return (secondOccurence.getValue()).compareTo(firstOccurence.getValue());
-			        	}	
+			        	}
 			    	} 
-			   	);
+			    	);
 			    
 			    	// This prints out the occurrences in the files and the percentage
 				for(int x = 0; x < listContainingFilesWithOccurences.size(); x++)
 				{
-					String returnedPercentage = documentsToRead.calculatePercentage(listContainingFilesWithOccurences.get(x) , x,words);
+					String returnedPercentage = documentsToRead.calculatePercentage(listContainingFilesWithOccurences.get(x) ,words);
 					JOptionPane.showMessageDialog(null,listContainingFilesWithOccurences.get(x) + "    Percentage -> " + returnedPercentage + "%");
 				}
 			}
@@ -234,7 +239,6 @@ public class SearchEngine extends JFrame implements ActionListener
 						// Add the file to the list
 						JOptionPane.showMessageDialog(this, "Successfully chose the file name " + j.getSelectedFile().getName());
 						documents.add(j.getSelectedFile().getName());
-						System.out.println(documents);
 					}
 				}
 				
