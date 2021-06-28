@@ -3,8 +3,7 @@ package com.topicmodeller.test;
 import java.io.FileNotFoundException;
 import java.util.ArrayList;
 
-public class Control 
-{
+public class Control {
 
 	public static void main(String[] args) throws FileNotFoundException 
 	{
@@ -28,8 +27,9 @@ public class Control
 
 		setOfFiles.readFile();
 		
-		setOfFiles.checkWhetherDocumentsAreCommon();
-	
+		String checkResult = setOfFiles.checkWhetherDocumentsAreCommon();
+
+		topicmodeller.initialiseVariableWithResultString(checkResult);
 
 	}
 
