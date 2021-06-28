@@ -19,6 +19,7 @@ public class TopicModellerGUI extends JFrame implements ActionListener
 	
 	JLabel titleLabel;
 	
+	String stringToBePrinted = "";
 	
 	TopicModellerGUI(String title)
 	{
@@ -54,15 +55,19 @@ public class TopicModellerGUI extends JFrame implements ActionListener
 		
 		setVisible(true);
 		
-		
+	}
+	
+	public void initialiseVariableWithResultString(String resultFromCheck)
+	{
+		stringToBePrinted = resultFromCheck;
 	}
 	
 	public void actionPerformed(ActionEvent eventDetected)
 	{
 		if(eventDetected.getSource() == button1)
 		{
-			System.out.println("You pressed the check button!");
-			JOptionPane.showMessageDialog(button1, "You pressed the check button!");
+			JOptionPane.showMessageDialog(button1, stringToBePrinted);
+			
 		}
 	}
 	
@@ -76,3 +81,4 @@ public class TopicModellerGUI extends JFrame implements ActionListener
 	}
 
 }
+
