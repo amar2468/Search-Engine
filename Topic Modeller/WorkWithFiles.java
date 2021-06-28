@@ -62,7 +62,7 @@ public class WorkWithFiles
 		{
 			for(int j = 0; j < textFileNames.size();j++)
 			{
-				Scanner scanFileContents = new Scanner(filesUsed[j]);
+				Scanner scanFileContents = new Scanner(filesUsed[j],"UTF-8");
 				
 				
 				while(scanFileContents.hasNextLine())
@@ -153,7 +153,7 @@ public class WorkWithFiles
 
 	}
 	
-	public void checkWhetherDocumentsAreCommon()
+	public String checkWhetherDocumentsAreCommon()
 	{
 		int counter = 0;
 		
@@ -190,17 +190,19 @@ public class WorkWithFiles
 		
 		if((((float)counter / (float)totalAmountOfWords)*100) >= 70)
 		{
-			System.out.println("Likely to be about the same topic");
+			return "Likely to be about the same topic";
 		}
 		
 		else if((((float)counter / (float)totalAmountOfWords)*100) > 40 && ((counter / totalAmountOfWords) * 100) < 70)
 		{
-			System.out.println("Not sure whether they are about the same topic");
+			return "Not sure whether they are about the same topic";
 		}
 		else if((((float)counter / (float)totalAmountOfWords)*100) <= 40)
 		{
-			System.out.println("Not likely to be about the same topic");
+			return "Not likely to be about the same topic";
 		}
+		
+		return "Nothing";
 	}
 
 	public String getFile() {
