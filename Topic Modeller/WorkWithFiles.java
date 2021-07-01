@@ -1,3 +1,9 @@
+/***********************************
+*WorkWithFiles: This is the WorkWithFiles class
+*Author: Amar Plakalo
+*Date:01/07/2021
+*/
+
 package com.topicmodeller.test;
 
 import java.io.File;
@@ -56,7 +62,7 @@ public class WorkWithFiles
 	{
 		String word = "";
 		
-		int var = 0;
+		int fileNumber = 0;
 		
 		try
 		{
@@ -78,7 +84,7 @@ public class WorkWithFiles
 					if(!allStopWords.contains(word))
 					{
 					
-						if(var == 0)
+						if(fileNumber == 0)
 						{
 						
 							if(wordsInFile.containsKey(word))
@@ -91,7 +97,7 @@ public class WorkWithFiles
 								wordsInFile.put(word,1);
 							}
 						}
-						else if(var == 1)
+						else if(fileNumber == 1)
 						{
 							if(secondMap.containsKey(word))
 							{
@@ -107,16 +113,19 @@ public class WorkWithFiles
 					
 				}
 				
-				var = 1;
+				fileNumber = 1;
 				
 				word = "";
 			
 				scanFileContents.close();
 			}
-		
 			
-			System.out.println(wordsInFile);
-			System.out.println(secondMap);
+			TopicModellerGUI obj = new TopicModellerGUI("Enjoy using the Topic Modeller App!");
+			obj.receivingMaps(wordsInFile,secondMap);
+			
+			String checkResult = checkWhetherDocumentsAreCommon();
+
+			obj.initialiseVariableWithResultString(checkResult);
 			
 			
 		}
