@@ -1,16 +1,17 @@
+/***********************************
+*Control: This is the control class
+*Author: Amar Plakalo
+*Date:01/07/2021
+*/
 package com.topicmodeller.test;
 
 import java.io.FileNotFoundException;
 import java.util.ArrayList;
 
-public class Control {
-
+public class Control 
+{
 	public static void main(String[] args) throws FileNotFoundException 
 	{
-		TopicModellerGUI topicmodeller = new TopicModellerGUI("Topic Modeller App - By Amar Plakalo");
-		
-		System.out.println(topicmodeller);
-		
 		ArrayList <String> fileNames = new ArrayList <String>();
 		
 		fileNames.add("text2.txt");
@@ -26,10 +27,6 @@ public class Control {
 		setOfFiles.readStopWordFile();
 
 		setOfFiles.readFile();
-		
-		String checkResult = setOfFiles.checkWhetherDocumentsAreCommon();
-
-		topicmodeller.initialiseVariableWithResultString(checkResult);
 
 	}
 
