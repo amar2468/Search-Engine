@@ -1,18 +1,19 @@
 /***********************************
 *TopicModellerGUI: This is the TopicModellerGUI class
 *Author: Amar Plakalo
-*Date:01/07/2021
+*Date:04/07/2021
 */
 
 package com.topicmodeller.test;
 
 import java.awt.Color;
 import java.awt.FlowLayout;
+import java.awt.Font;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.Map;
+import java.util.List;
+import java.util.Map.Entry;
 
 import javax.swing.JButton;
 import javax.swing.JFileChooser;
@@ -35,10 +36,13 @@ public class TopicModellerGUI extends JFrame implements ActionListener
 	
 	private ArrayList<String>filesChosen = new ArrayList<String>();
 	
-	private Map<String,Integer>mapp2 = new HashMap<String,Integer>();
+	private List<Entry<String,Integer>>randomlist = new ArrayList<Entry<String,Integer>>();
 	
-	private Map<String,Integer>test = new HashMap<String,Integer>();
+	private List<Entry<String,Integer>>randomlist2 = new ArrayList<Entry<String,Integer>>();
+	
+	private List<Entry<String,Integer>>randomlist3 = new ArrayList<Entry<String,Integer>>();
 
+	WorkWithFiles fileobj = new WorkWithFiles(filesChosen,"stopwords.txt");
 	
 	TopicModellerGUI(String title)
 	{
@@ -70,6 +74,7 @@ public class TopicModellerGUI extends JFrame implements ActionListener
 		
 		titleLabel = new JLabel("Enjoy using the Topic Modeller App!!");
 		titleLabel.setBackground(Color.darkGray);
+		titleLabel.setFont(new Font("Serif", Font.BOLD, 23));
 	
 		
 		add(panel1,"North");
@@ -90,26 +95,22 @@ public class TopicModellerGUI extends JFrame implements ActionListener
 		stringToBePrinted = resultFromCheck;
 	}
 	
-	public void receivingMaps(Map<String,Integer>mapp,Map<String,Integer>myMap)
-	{
-		mapp2.putAll(mapp);
-		System.out.println(mapp);
-		test.putAll(myMap);
-		System.out.println(myMap);
-	}
-	
 	public void actionPerformed(ActionEvent eventDetected)
 	{
 		if(eventDetected.getSource() == button1)
-		{
+		{	
+			stringToBePrinted = fileobj.checkWhetherDocumentsAreCommon(randomlist,randomlist3);
+			
 			JOptionPane.showMessageDialog(button1, stringToBePrinted);
 			
 		}
 		
 		else if(eventDetected.getSource() == button2)
 		{
-			JOptionPane.showMessageDialog(button2, mapp2);
-			JOptionPane.showMessageDialog(button2, test);
+			JOptionPane.showMessageDialog(button2, randomlist);
+			JOptionPane.showMessageDialog(button2, randomlist3);
+
+		
 		}
 		
 		else if(eventDetected.getSource() == chooseFiles)
@@ -126,8 +127,12 @@ public class TopicModellerGUI extends JFrame implements ActionListener
 				{
 					JOptionPane.showMessageDialog(this,"Successfully added a file");
 					filesChosen.add(fileChooserWindow.getSelectedFile().getName());
+					
 				}
-				else
+				
+				
+				
+				else if(!filesChosen.isEmpty() && filesChosen.size() < 2)
 				{
 					for(int f = 0; f < filesChosen.size(); f++)
 					{
@@ -148,14 +153,52 @@ public class TopicModellerGUI extends JFrame implements ActionListener
 					{
 						JOptionPane.showMessageDialog(this,"Successfully added filename - > " + fileChooserWindow.getSelectedFile().getName());
 						filesChosen.add(fileChooserWindow.getSelectedFile().getName());
+						
+						if(filesChosen.size() == 2)
+						{
+							fileobj.openFile();
+							
+							fileobj.readStopWordFile();
+							
+							fileobj.readFile();
+							
+							randomlist.addAll(fileobj.returnFirstMap());
+							
+							int lengthOfRandomList = randomlist.size();
+							
+							for(int v = 10; v < lengthOfRandomList;v++)
+							{
+								randomlist2.add(randomlist.get(v));
+								
+							}
+							
+							randomlist.removeAll(randomlist2);
+							
+							randomlist2.clear();
+							
+							randomlist3.addAll(fileobj.returnSecondMap());
+							
+							int lenOfRandomList3 = randomlist3.size();
+							
+							for(int b = 10; b < lenOfRandomList3; b++)
+							{
+								randomlist2.add(randomlist3.get(b));
+							}
+							
+							randomlist3.removeAll(randomlist2);
+						}
 					}
 				}
 			}
+		}
+			
+			
 			else
 			{
 				JOptionPane.showMessageDialog(this,"You have not added the file to this app!");
 			}
-		}
+			
+
 	}
 	
 	public String toString()
