@@ -1,7 +1,9 @@
 /***********************************
-*WorkWithFiles: This is the WorkWithFiles class
+*WorkWithFiles: This is the WorkWithFiles class. This class opens the files, puts the words from each of the files
+*into different maps, scans the files for stopwords and calculates the amount of overlap between the documents
+*so that it can be determined whether the files are common.
 *Author: Amar Plakalo
-*Date:04/07/2021
+*Date:05/07/2021
 */
 
 package com.topicmodeller.test;
@@ -22,40 +24,40 @@ public class WorkWithFiles
 {
 	private File[] filesUsed;
 	
-	private Map<String,Integer>wordsInFile = new HashMap<String,Integer>();
+	private Map<String,Integer>wordsInFirstFile = new HashMap<String,Integer>();
 	
-	private String fileName;
+	private Map<String,Integer>wordsInSecondFile;
 	
-	private File file;
+	private String stopWordFileName;
 	
-	private Map<String,Integer>secondMap;
+	private File stopWordFile;
 	
-	private ArrayList<String>textFileNames = new ArrayList<String>();
+	private ArrayList<String>textstopWordFileNames = new ArrayList<String>();
 
 	private ArrayList<String> allStopWords = new ArrayList<String>();
 
 
-	WorkWithFiles(ArrayList<String>textFileNames,String fileName)
+	WorkWithFiles(ArrayList<String>textstopWordFileNames,String stopWordFileName)
 	{
-		this.setTextFileNames(textFileNames);
-		this.setFileName(fileName);
+		this.setTextstopWordFileNames(textstopWordFileNames);
+		this.setstopWordFileName(stopWordFileName);
 	}
 
 	
 	public void openFile()
 	{
-		filesUsed = new File[getTextFileNames().size()];
+		filesUsed = new File[getTextstopWordFileNames().size()];
 		
-		wordsInFile = new HashMap<String,Integer>();
+		wordsInFirstFile = new HashMap<String,Integer>();
 		
-		secondMap = new HashMap<String,Integer>();
+		wordsInSecondFile = new HashMap<String,Integer>();
 		
-		file = new File(fileName);
+		stopWordFile = new File(stopWordFileName);
 		
 		
-		for(int i = 0; i < getTextFileNames().size(); i++)
+		for(int i = 0; i < getTextstopWordFileNames().size(); i++)
 		{
-			filesUsed[i] = new File(getTextFileNames().get(i));
+			filesUsed[i] = new File(getTextstopWordFileNames().get(i));
 		}
 		
 		
@@ -70,7 +72,7 @@ public class WorkWithFiles
 		
 		try
 		{
-			for(int j = 0; j < getTextFileNames().size();j++)
+			for(int j = 0; j < getTextstopWordFileNames().size();j++)
 			{
 				Scanner scanFileContents = new Scanner(filesUsed[j],"UTF-8");
 				
@@ -79,16 +81,11 @@ public class WorkWithFiles
 				{
 					word = scanFileContents.next();
 					
-					word = word.replace(",","");
+					word = word.replaceAll("\\p{Punct}", "");
 					
 					word = word.replaceAll("[^a-zA-Z0-9]","");
 					
-					word = word.replace(" ","");
-					
-					word = word.replaceAll("[-+^]*", "");  
-					
-					
-					word = word.replaceAll("\\p{Punct}", "");
+					word = word.replaceAll("\n","");
 					
 					
 					if(!allStopWords.contains(word))
@@ -97,26 +94,26 @@ public class WorkWithFiles
 						if(fileNumber == 0)
 						{
 						
-							if(wordsInFile.containsKey(word))
+							if(wordsInFirstFile.containsKey(word) && !word.equals(""))
 							{
-								wordsInFile.put(word,wordsInFile.get(word) + 1);
+								wordsInFirstFile.put(word,wordsInFirstFile.get(word) + 1);
 								
 							}
-							else
+							else if(!wordsInFirstFile.containsKey(word) && !word.equals(""))
 							{
-								wordsInFile.put(word,1);
+								wordsInFirstFile.put(word,1);
 							}
 						}
 						else if(fileNumber == 1)
 						{
-							if(secondMap.containsKey(word))
+							if(wordsInSecondFile.containsKey(word) && !word.equals(""))
 							{
-								secondMap.put(word,secondMap.get(word) + 1);
+								wordsInSecondFile.put(word,wordsInSecondFile.get(word) + 1);
 								
 							}
-							else
+							else if(!wordsInSecondFile.containsKey(word) && !word.equals(""))
 							{
-								secondMap.put(word,1);
+								wordsInSecondFile.put(word,1);
 							}
 						}
 					}
@@ -143,11 +140,11 @@ public class WorkWithFiles
 	
 	public List<Entry<String,Integer>> returnFirstMap()
 	{
-		Set<Entry<String,Integer>>set = wordsInFile.entrySet();
+		Set<Entry<String,Integer>>setContainingWords = wordsInFirstFile.entrySet();
 		
-		List<Entry<String,Integer>>list = new ArrayList<Entry<String,Integer>>(set);
+		List<Entry<String,Integer>>listContainingSet = new ArrayList<Entry<String,Integer>>(setContainingWords);
 		
-		Collections.sort(list,new Comparator<Map.Entry<String,Integer>>()
+		Collections.sort(listContainingSet,new Comparator<Map.Entry<String,Integer>>()
 		{
 			public int compare(Map.Entry<String,Integer>o1,Map.Entry<String,Integer>o2)
 			{
@@ -156,17 +153,17 @@ public class WorkWithFiles
 		});
 
 	
-		return list;
+		return listContainingSet;
 	}
 	
 	
 	public List<Entry<String,Integer>> returnSecondMap()
 	{
-		Set<Entry<String,Integer>>set1 = secondMap.entrySet();
+		Set<Entry<String,Integer>>secondSetContainingWords = wordsInSecondFile.entrySet();
 		
-		List<Entry<String,Integer>>list1 = new ArrayList<Entry<String,Integer>>(set1);
+		List<Entry<String,Integer>>secondListContainingSet = new ArrayList<Entry<String,Integer>>(secondSetContainingWords);
 		
-		Collections.sort(list1,new Comparator<Map.Entry<String,Integer>>()
+		Collections.sort(secondListContainingSet,new Comparator<Map.Entry<String,Integer>>()
 		{
 			public int compare(Map.Entry<String,Integer>o3,Map.Entry<String,Integer>o4)
 			{
@@ -174,7 +171,7 @@ public class WorkWithFiles
 			}
 		});
 				
-		return list1;
+		return secondListContainingSet;
 	}
 	
 	public void readStopWordFile()
@@ -184,7 +181,7 @@ public class WorkWithFiles
 		try
 		{
 		
-			Scanner scanCurrentStopWord = new Scanner(file);
+			Scanner scanCurrentStopWord = new Scanner(stopWordFile);
 			
 			while(scanCurrentStopWord.hasNextLine())
 			{
@@ -249,25 +246,23 @@ public class WorkWithFiles
 	}
 
 
-	private ArrayList<String> getTextFileNames() {
-		return textFileNames;
+	private ArrayList<String> getTextstopWordFileNames() {
+		return textstopWordFileNames;
 	}
 
 
-	private void setTextFileNames(ArrayList<String> textFileNames) {
-		this.textFileNames = textFileNames;
+	private void setTextstopWordFileNames(ArrayList<String> textstopWordFileNames) {
+		this.textstopWordFileNames = textstopWordFileNames;
 	}
 
 
-	private String getFileName() {
-		return fileName;
+	private String getstopWordFileName() {
+		return stopWordFileName;
 	}
 
 
-	private void setFileName(String fileName) {
-		this.fileName = fileName;
+	private void setstopWordFileName(String stopWordFileName) {
+		this.stopWordFileName = stopWordFileName;
 	}
-
-
 
 }
