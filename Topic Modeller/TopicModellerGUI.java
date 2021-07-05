@@ -1,7 +1,9 @@
 /***********************************
-*TopicModellerGUI: This is the TopicModellerGUI class
+*TopicModellerGUI: This is the TopicModellerGUI class. This class allows the user to choose the files, check
+*results and also check whether the documents are about the same topic. In this class, there is a file
+*chooser implemented so that the user can pick which files they want to test.
 *Author: Amar Plakalo
-*Date:04/07/2021
+*Date:05/07/2021
 */
 
 package com.topicmodeller.test;
@@ -26,9 +28,9 @@ import javax.swing.filechooser.FileSystemView;
 @SuppressWarnings("serial")
 public class TopicModellerGUI extends JFrame implements ActionListener
 {
-	JButton button1,button2,chooseFiles;
+	JButton checkIfSameTopic,resultsButton,chooseFiles;
 	
-	JPanel panel1,panel2;
+	JPanel topPanel,belowTopPanel;
 	
 	JLabel titleLabel;
 	
@@ -36,11 +38,11 @@ public class TopicModellerGUI extends JFrame implements ActionListener
 	
 	private ArrayList<String>filesChosen = new ArrayList<String>();
 	
-	private List<Entry<String,Integer>>randomlist = new ArrayList<Entry<String,Integer>>();
+	private List<Entry<String,Integer>>returnedFirstMapNowList = new ArrayList<Entry<String,Integer>>();
 	
-	private List<Entry<String,Integer>>randomlist2 = new ArrayList<Entry<String,Integer>>();
+	private List<Entry<String,Integer>>sublistToRemove = new ArrayList<Entry<String,Integer>>();
 	
-	private List<Entry<String,Integer>>randomlist3 = new ArrayList<Entry<String,Integer>>();
+	private List<Entry<String,Integer>>returnedSecondMapNowList = new ArrayList<Entry<String,Integer>>();
 
 	WorkWithFiles fileobj = new WorkWithFiles(filesChosen,"stopwords.txt");
 	
@@ -50,23 +52,23 @@ public class TopicModellerGUI extends JFrame implements ActionListener
 		
 		setSize(400,340);
 		
-		panel1 = new JPanel();
-		panel1.setLayout(new FlowLayout());
-		panel1.setBackground(Color.pink);
+		topPanel = new JPanel();
+		topPanel.setLayout(new FlowLayout());
+		topPanel.setBackground(Color.pink);
 		
 		FlowLayout flay = new FlowLayout();
-		panel2 =  new JPanel();
-		panel2.setLayout(flay);
-		panel2.setBackground(Color.cyan);
+		belowTopPanel =  new JPanel();
+		belowTopPanel.setLayout(flay);
+		belowTopPanel.setBackground(Color.cyan);
 		
 		
-		button1 = new JButton("Check if same topic");
-		button1.setBackground(Color.green);
-		button1.addActionListener(this);
+		checkIfSameTopic = new JButton("Check if same topic");
+		checkIfSameTopic.setBackground(Color.green);
+		checkIfSameTopic.addActionListener(this);
 		
-		button2 = new JButton("Results");
-		button2.setBackground(Color.green);
-		button2.addActionListener(this);
+		resultsButton = new JButton("Results");
+		resultsButton.setBackground(Color.green);
+		resultsButton.addActionListener(this);
 		
 		chooseFiles = new JButton("Choose File");
 		chooseFiles.setBackground(Color.green);
@@ -77,14 +79,14 @@ public class TopicModellerGUI extends JFrame implements ActionListener
 		titleLabel.setFont(new Font("Serif", Font.BOLD, 23));
 	
 		
-		add(panel1,"North");
-		add(panel2,"Center");
+		add(topPanel,"North");
+		add(belowTopPanel,"Center");
 		
-		panel1.add(titleLabel);
+		topPanel.add(titleLabel);
 		
-		panel2.add(button1);
-		panel2.add(button2);
-		panel2.add(chooseFiles);
+		belowTopPanel.add(checkIfSameTopic);
+		belowTopPanel.add(resultsButton);
+		belowTopPanel.add(chooseFiles);
 		
 		setVisible(true);
 		
@@ -97,18 +99,18 @@ public class TopicModellerGUI extends JFrame implements ActionListener
 	
 	public void actionPerformed(ActionEvent eventDetected)
 	{
-		if(eventDetected.getSource() == button1)
+		if(eventDetected.getSource() == checkIfSameTopic)
 		{	
-			stringToBePrinted = fileobj.checkWhetherDocumentsAreCommon(randomlist,randomlist3);
+			stringToBePrinted = fileobj.checkWhetherDocumentsAreCommon(returnedFirstMapNowList,returnedSecondMapNowList);
 			
-			JOptionPane.showMessageDialog(button1, stringToBePrinted);
+			JOptionPane.showMessageDialog(checkIfSameTopic, stringToBePrinted);
 			
 		}
 		
-		else if(eventDetected.getSource() == button2)
+		else if(eventDetected.getSource() == resultsButton)
 		{
-			JOptionPane.showMessageDialog(button2, randomlist);
-			JOptionPane.showMessageDialog(button2, randomlist3);
+			JOptionPane.showMessageDialog(resultsButton, returnedFirstMapNowList);
+			JOptionPane.showMessageDialog(resultsButton, returnedSecondMapNowList);
 
 		
 		}
@@ -162,30 +164,30 @@ public class TopicModellerGUI extends JFrame implements ActionListener
 							
 							fileobj.readFile();
 							
-							randomlist.addAll(fileobj.returnFirstMap());
+							returnedFirstMapNowList.addAll(fileobj.returnFirstMap());
 							
-							int lengthOfRandomList = randomlist.size();
+							int lengthOfreturnedFirstMapNowList = returnedFirstMapNowList.size();
 							
-							for(int v = 10; v < lengthOfRandomList;v++)
+							for(int v = 10; v < lengthOfreturnedFirstMapNowList;v++)
 							{
-								randomlist2.add(randomlist.get(v));
+								sublistToRemove.add(returnedFirstMapNowList.get(v));
 								
 							}
 							
-							randomlist.removeAll(randomlist2);
+							returnedFirstMapNowList.removeAll(sublistToRemove);
 							
-							randomlist2.clear();
+							sublistToRemove.clear();
 							
-							randomlist3.addAll(fileobj.returnSecondMap());
+							returnedSecondMapNowList.addAll(fileobj.returnSecondMap());
 							
-							int lenOfRandomList3 = randomlist3.size();
+							int lenOfreturnedSecondMapNowList = returnedSecondMapNowList.size();
 							
-							for(int b = 10; b < lenOfRandomList3; b++)
+							for(int b = 10; b < lenOfreturnedSecondMapNowList; b++)
 							{
-								randomlist2.add(randomlist3.get(b));
+								sublistToRemove.add(returnedSecondMapNowList.get(b));
 							}
 							
-							randomlist3.removeAll(randomlist2);
+							returnedSecondMapNowList.removeAll(sublistToRemove);
 						}
 					}
 				}
