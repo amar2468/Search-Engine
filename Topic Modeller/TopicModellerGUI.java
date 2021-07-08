@@ -3,7 +3,7 @@
 *results and also check whether the documents are about the same topic. In this class, there is a file
 *chooser implemented so that the user can pick which files they want to test.
 *Author: Amar Plakalo
-*Date:05/07/2021
+*Date:08/07/2021
 */
 
 package com.topicmodeller.test;
@@ -11,12 +11,14 @@ package com.topicmodeller.test;
 import java.awt.Color;
 import java.awt.FlowLayout;
 import java.awt.Font;
+import java.awt.Image;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map.Entry;
 
+import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JFileChooser;
 import javax.swing.JFrame;
@@ -25,12 +27,13 @@ import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.filechooser.FileSystemView;
 
+
 @SuppressWarnings("serial")
 public class TopicModellerGUI extends JFrame implements ActionListener
 {
 	JButton checkIfSameTopic,resultsButton,chooseFiles;
 	
-	JPanel topPanel,belowTopPanel;
+	JPanel topPanel,panel2,belowTopPanel;
 	
 	JLabel titleLabel;
 	
@@ -50,16 +53,32 @@ public class TopicModellerGUI extends JFrame implements ActionListener
 	{
 		super(title);
 		
-		setSize(400,340);
+		setSize(450,830);
+		
+		FlowLayout flow = new FlowLayout(FlowLayout.CENTER,20,20);
+		FlowLayout flow2 = new FlowLayout(FlowLayout.CENTER,20,240);
 		
 		topPanel = new JPanel();
-		topPanel.setLayout(new FlowLayout());
 		topPanel.setBackground(Color.pink);
 		
-		FlowLayout flay = new FlowLayout();
+		panel2 = new JPanel();
+		panel2.setLayout(flow2);
+		panel2.setBackground(Color.pink);
+		ImageIcon myPicture = new ImageIcon("random.png");
+		
+		Image img = myPicture.getImage();
+		
+		Image modifiedImage = img.getScaledInstance(260, 220, DO_NOTHING_ON_CLOSE);
+		
+		myPicture = new ImageIcon(modifiedImage);
+		
+		JLabel picLabel = new JLabel((myPicture));
+		
+		panel2.add(picLabel);
+		
 		belowTopPanel =  new JPanel();
-		belowTopPanel.setLayout(flay);
-		belowTopPanel.setBackground(Color.cyan);
+		belowTopPanel.setLayout(flow);
+		belowTopPanel.setBackground(Color.pink);
 		
 		
 		checkIfSameTopic = new JButton("Check if same topic");
@@ -75,18 +94,19 @@ public class TopicModellerGUI extends JFrame implements ActionListener
 		chooseFiles.addActionListener(this);
 		
 		titleLabel = new JLabel("Enjoy using the Topic Modeller App!!");
-		titleLabel.setBackground(Color.darkGray);
-		titleLabel.setFont(new Font("Serif", Font.BOLD, 23));
+		titleLabel.setFont(new Font("Comic Sans MS", Font.BOLD, 23));
 	
 		
 		add(topPanel,"North");
-		add(belowTopPanel,"Center");
+		add(panel2,"South");
+		add(belowTopPanel);
 		
 		topPanel.add(titleLabel);
 		
 		belowTopPanel.add(checkIfSameTopic);
 		belowTopPanel.add(resultsButton);
 		belowTopPanel.add(chooseFiles);
+		
 		
 		setVisible(true);
 		
