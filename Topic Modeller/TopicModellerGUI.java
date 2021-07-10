@@ -3,7 +3,7 @@
 *results and also check whether the documents are about the same topic. In this class, there is a file
 *chooser implemented so that the user can pick which files they want to test.
 *Author: Amar Plakalo
-*Date:08/07/2021
+*Date:10/07/2021
 */
 
 package com.topicmodeller.test;
@@ -33,7 +33,7 @@ public class TopicModellerGUI extends JFrame implements ActionListener
 {
 	JButton checkIfSameTopic,resultsButton,chooseFiles;
 	
-	JPanel topPanel,panel2,belowTopPanel;
+	JPanel topPanel,belowTopPanel,lowestPanel;
 	
 	JLabel titleLabel;
 	
@@ -61,20 +61,20 @@ public class TopicModellerGUI extends JFrame implements ActionListener
 		topPanel = new JPanel();
 		topPanel.setBackground(Color.pink);
 		
-		panel2 = new JPanel();
-		panel2.setLayout(flow2);
-		panel2.setBackground(Color.pink);
+		lowestPanel = new JPanel();
+		lowestPanel.setLayout(flow2);
+		lowestPanel.setBackground(Color.pink);
 		ImageIcon myPicture = new ImageIcon("random.png");
 		
 		Image img = myPicture.getImage();
 		
-		Image modifiedImage = img.getScaledInstance(260, 220, DO_NOTHING_ON_CLOSE);
+		Image modifiedImage = img.getScaledInstance(210, 220, DO_NOTHING_ON_CLOSE);
 		
 		myPicture = new ImageIcon(modifiedImage);
 		
 		JLabel picLabel = new JLabel((myPicture));
 		
-		panel2.add(picLabel);
+		lowestPanel.add(picLabel);
 		
 		belowTopPanel =  new JPanel();
 		belowTopPanel.setLayout(flow);
@@ -94,13 +94,14 @@ public class TopicModellerGUI extends JFrame implements ActionListener
 		chooseFiles.addActionListener(this);
 		
 		titleLabel = new JLabel("Enjoy using the Topic Modeller App!!");
+		titleLabel.setForeground(Color.BLUE);
 		titleLabel.setFont(new Font("Comic Sans MS", Font.BOLD, 23));
 	
 		
 		add(topPanel,"North");
-		add(panel2,"South");
 		add(belowTopPanel);
-		
+		add(lowestPanel,"South");
+	
 		topPanel.add(titleLabel);
 		
 		belowTopPanel.add(checkIfSameTopic);
