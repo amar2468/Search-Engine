@@ -3,7 +3,7 @@
 *into different maps, scans the files for stopwords and calculates the amount of overlap between the documents
 *so that it can be determined whether the files are common.
 *Author: Amar Plakalo
-*Date:05/07/2021
+*Date:10/07/2021
 */
 
 package com.topicmodeller.test;
@@ -86,6 +86,8 @@ public class WorkWithFiles
 					word = word.replaceAll("[^a-zA-Z0-9]","");
 					
 					word = word.replaceAll("\n","");
+					
+					word = word.toLowerCase();
 					
 					
 					if(!allStopWords.contains(word))
@@ -217,7 +219,7 @@ public class WorkWithFiles
 			{
 				if(element.getKey().equals(element2.getKey()))
 				{
-					occurrences += 1;
+					occurrences += element2.getValue();
 					break;
 				}
 			}
@@ -228,16 +230,16 @@ public class WorkWithFiles
 		System.out.println("Amount of overlaps - > " + occurrences);
 	
 		
-		if((((float)occurrences / (float)10)*100) >= 70)
+		if((((float)occurrences / (float)a2.size())*100) >= 70)
 		{
 			returnStringResult =  "Likely to be about the same topic";
 		}
 		
-		else if((((float)occurrences / (float)10)*100) > 40 && ((occurrences / 10) * 100) < 70)
+		else if((((float)occurrences / (float)a2.size())*100) >= 40 && ((occurrences / 10) * 100) < 70)
 		{
 			returnStringResult = "Not sure whether they are about the same topic";
 		}
-		else if((((float)occurrences / (float)10)*100) <= 40)
+		else if((((float)occurrences / (float)a2.size())*100) < 40)
 		{
 			returnStringResult = "Not likely to be about the same topic";
 		}
@@ -246,22 +248,20 @@ public class WorkWithFiles
 	}
 
 
-	private ArrayList<String> getTextstopWordFileNames() {
+	private ArrayList<String> getTextstopWordFileNames() 
+	{
 		return textstopWordFileNames;
 	}
 
 
-	private void setTextstopWordFileNames(ArrayList<String> textstopWordFileNames) {
+	private void setTextstopWordFileNames(ArrayList<String> textstopWordFileNames) 
+	{
 		this.textstopWordFileNames = textstopWordFileNames;
 	}
 
 
-	private String getstopWordFileName() {
-		return stopWordFileName;
-	}
-
-
-	private void setstopWordFileName(String stopWordFileName) {
+	private void setstopWordFileName(String stopWordFileName) 
+	{
 		this.stopWordFileName = stopWordFileName;
 	}
 
