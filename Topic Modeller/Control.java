@@ -2,7 +2,7 @@
 *Control: This is the control class. This class calls the TopicModellerGUI constructor and passes in the title
 *of the GUI window.
 *Author: Amar Plakalo
-*Date:05/07/2021
+*Date:10/07/2021
 */
 package com.topicmodeller.test;
 
