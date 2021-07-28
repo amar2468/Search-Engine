@@ -13,14 +13,18 @@ public class Control
 		
 		Statement st = conn.createStatement();
 		
+		Statement st1 = conn.createStatement();
+		
 		ResultSet rs = st.executeQuery("SELECT * from UnemploymentLevels");
 		
-		DataModellerGUI obj = new DataModellerGUI(st,rs);
+		ResultSet rs_female = st1.executeQuery("SELECT * from UnemploymentLevels");
 		
-		obj.firstFact();
+		DataModellerGUI obj = new DataModellerGUI(st,rs,rs_female);
 		
-		conn.close();
+		System.out.println(obj);
+		
 	}
 	
 	
 }
+
