@@ -3,7 +3,7 @@
 *four buttons to click which will present a certain fact from the dataset I used which was - 25-64 yr olds 
 *who are unemployed.
 *Author: Amar Plakalo
-*Date:05/08/2021
+*Date:06/08/2021
 */
 
 package com.datamodeller.test;
@@ -25,15 +25,13 @@ import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
+import javax.swing.UIManager;
 
 @SuppressWarnings("serial")
 public class DataModellerGUI extends JFrame implements ActionListener
 {
 	Statement statement;
-	ResultSet resultSet;
-	ResultSet resultSet1;
-	ResultSet resultSet2;
-	ResultSet resultSet3;
+	ResultSet resultSet,resultSet1,resultSet2,resultSet3;
 	JButton b1,b2,b3,b4;
 	
 
@@ -46,7 +44,11 @@ public class DataModellerGUI extends JFrame implements ActionListener
 		this.resultSet2 = rs_male;
 		this.resultSet3 = rs_male_2;
 		
-		setSize(1500,500);
+		
+		UIManager.put("OptionPane.background", Color.cyan);
+		UIManager.put("Panel.background", Color.cyan);
+		
+		setSize(1500,800);
 		
 		FlowLayout flow = new FlowLayout(FlowLayout.CENTER,20,35);
 		FlowLayout flow2 = new FlowLayout(FlowLayout.CENTER,20,10);
@@ -147,7 +149,7 @@ public class DataModellerGUI extends JFrame implements ActionListener
 		
 		System.out.println("Percentage of women unemployed with third level education in 2011 -> " + percentage);
 		String output = String.format("%.2f", percentage);
-		JOptionPane.showMessageDialog(this, "Percentage of women unemployed with third level education in 2011 -> " + output);
+		JOptionPane.showMessageDialog(this, "Percentage of women unemployed with third level education in 2011 -> " + output + "%");
 	}
 	
 	public void secondFact() throws SQLException
@@ -191,7 +193,7 @@ public class DataModellerGUI extends JFrame implements ActionListener
 		System.out.println("Percentage of women unemployed with third level education in 2020 -> " + percentage);
 		
 		String output = String.format("%.2f", percentage);
-		JOptionPane.showMessageDialog(this, "Percentage of women unemployed with third level education in 2020 -> " + output);
+		JOptionPane.showMessageDialog(this, "Percentage of women unemployed with third level education in 2020 -> " + output + "%");
 	}
 	
 	
@@ -236,7 +238,7 @@ public class DataModellerGUI extends JFrame implements ActionListener
 		System.out.println("Percentage of men unemployed with third level education in 2011 -> " + percentage);
 		
 		String output = String.format("%.2f", percentage);
-		JOptionPane.showMessageDialog(this, "Percentage of men unemployed with third level education in 2011 -> " + output);
+		JOptionPane.showMessageDialog(this, "Percentage of men unemployed with third level education in 2011 -> " + output + "%");
 	}
 	
 	
@@ -281,7 +283,7 @@ public class DataModellerGUI extends JFrame implements ActionListener
 		System.out.println("Percentage of men unemployed with third level education in 2020 -> " + percentage);
 		
 		String output = String.format("%.2f", percentage);
-		JOptionPane.showMessageDialog(this, "Percentage of men unemployed with third level education in 2020 -> " + output);
+		JOptionPane.showMessageDialog(this, "Percentage of men unemployed with third level education in 2020 -> " + output + "%");
 	}
 	
 	
