@@ -3,7 +3,7 @@
 *four buttons to click which will present a certain fact from the dataset I used which was - 25-64 yr olds 
 *who are unemployed.
 *Author: Amar Plakalo
-*Date:06/08/2021
+*Date:30/08/2021
 */
 
 package com.datamodeller.test;
@@ -127,27 +127,20 @@ public class DataModellerGUI extends JFrame implements ActionListener
 			if(student_sex.equals("Female") && quarter1.equals("2011Q2"))
 			{
 				sum += totalFemales;
-				System.out.println(student_sex + " -> " + education);
 			}
 			
 			
 			if(student_sex.equals("Female") && education.equals("Third level") && quarter1.equals("2011Q2"))
 			{
 				third_level_unemployed_females += totalFemales;
-				System.out.println(student_sex + " -> " + education);
 			}
 			
 		}
-		
-		System.out.println("Total females in 2011 -> " + sum);
-		
-		System.out.println("Total of females unemployed with third level education in 2011 -> " + third_level_unemployed_females);
 		
 		float percentage = 0;
 		
 		percentage = (((float)third_level_unemployed_females / (float)sum) * 100);
 		
-		System.out.println("Percentage of women unemployed with third level education in 2011 -> " + percentage);
 		String output = String.format("%.2f", percentage);
 		JOptionPane.showMessageDialog(this, "Percentage of women unemployed with third level education in 2011 -> " + output + "%");
 	}
@@ -170,27 +163,19 @@ public class DataModellerGUI extends JFrame implements ActionListener
 			if(student_sex.equals("Female") && quarter2.equals("2020Q2"))
 			{
 				sum_new += totalFemales2020;
-				System.out.println(student_sex + " -> " + education);
 			}
 			
 			
 			if(student_sex.equals("Female") && education.equals("Third level") && quarter2.equals("2020Q2"))
 			{
 				third_level_unemployed_females_2 += totalFemales2020;
-				System.out.println(student_sex + " -> " + education);
 			}
 			
 		}
 		
-		System.out.println("Total females in 2020 -> " + sum_new);
-		
-		System.out.println("Total of females unemployed with third level education in 2020 -> " + third_level_unemployed_females_2);
-		
 		float percentage = 0;
 		
 		percentage = (((float)third_level_unemployed_females_2 / (float)sum_new) * 100);
-		
-		System.out.println("Percentage of women unemployed with third level education in 2020 -> " + percentage);
 		
 		String output = String.format("%.2f", percentage);
 		JOptionPane.showMessageDialog(this, "Percentage of women unemployed with third level education in 2020 -> " + output + "%");
@@ -215,27 +200,20 @@ public class DataModellerGUI extends JFrame implements ActionListener
 			if(student_sex.equals("Male") && quarter2.equals("2011Q2"))
 			{
 				sum_new_1 += totalMales2011;
-				System.out.println(student_sex + " -> " + education);
 			}
 			
 			
 			if(student_sex.equals("Male") && education.equals("Third level") && quarter2.equals("2011Q2"))
 			{
 				third_level_unemployed_males_1 += totalMales2011;
-				System.out.println(student_sex + " -> " + education);
 			}
 			
 		}
-		
-		System.out.println("Total males in 2011 -> " + sum_new_1);
-		
-		System.out.println("Total of men unemployed with third level education in 2011 -> " + third_level_unemployed_males_1);
 		
 		float percentage = 0;
 		
 		percentage = (((float)third_level_unemployed_males_1 / (float)sum_new_1) * 100);
 		
-		System.out.println("Percentage of men unemployed with third level education in 2011 -> " + percentage);
 		
 		String output = String.format("%.2f", percentage);
 		JOptionPane.showMessageDialog(this, "Percentage of men unemployed with third level education in 2011 -> " + output + "%");
@@ -260,27 +238,20 @@ public class DataModellerGUI extends JFrame implements ActionListener
 			if(student_sex.equals("Male") && quarter2.equals("2020Q2"))
 			{
 				sum_new_2 += totalMales2020;
-				System.out.println(student_sex + " -> " + education);
 			}
 			
 			
 			if(student_sex.equals("Male") && education.equals("Third level") && quarter2.equals("2020Q2"))
 			{
 				third_level_unemployed_males_2 += totalMales2020;
-				System.out.println(student_sex + " -> " + education);
 			}
 			
 		}
-		
-		System.out.println("Total males in 2020 -> " + sum_new_2);
-		
-		System.out.println("Total of men unemployed with third level education in 2020 -> " + third_level_unemployed_males_2);
+
 		
 		float percentage = 0;
 		
 		percentage = (((float)third_level_unemployed_males_2 / (float)sum_new_2) * 100);
-		
-		System.out.println("Percentage of men unemployed with third level education in 2020 -> " + percentage);
 		
 		String output = String.format("%.2f", percentage);
 		JOptionPane.showMessageDialog(this, "Percentage of men unemployed with third level education in 2020 -> " + output + "%");
