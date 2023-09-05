@@ -9,6 +9,10 @@ The program consists of four classes:
 3. ShowingFiles class, which shows the contents of the files that were chosen by the user
 4. Control class, which creates a search engine object that gives the title to the app
 
+**DEMO**
+
+https://www.youtube.com/watch?v=AgKpH9wNpMA
+
 
 **CLASS EXPLAINED - FileProcessing Class**
 
